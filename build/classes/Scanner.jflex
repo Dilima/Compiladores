@@ -37,14 +37,12 @@ public ScannerJBasic(Reader reader, ParserJBasic parser) {
 "else" { return ParserJBasic.TK_ELSE; }
 "fi" { return ParserJBasic.TK_END_IF; }
 "while" { return ParserJBasic.TK_WHILE; }
-"done" { return ParserJBasic.TK_WHILE_DONE; }
+"done" { return ParserJBasic.TK_DONE; }
 "do" { return ParserJBasic.TK_DO; }
-"{" { return ParserJBasic.TK_COMMENT_START; }
-"}" { return ParserJBasic.TK_COMMENT_END; }
 "decl" { return ParserJBasic.TK_NEW_VAR; }
 "for" { return ParserJBasic.TK_FOR; }
-"from" { return ParserJBasic.TK_FOR_FROM; }
-"to" { return ParserJBasic.TK_FOR_TO; }
+"from" { return ParserJBasic.TK_FROM; }
+"to" { return ParserJBasic.TK_TO; }
 "int" { return ParserJBasic.TK_INT; }
 
 [a-z$_][a-z0-9$_]* {
@@ -56,7 +54,9 @@ public ScannerJBasic(Reader reader, ParserJBasic parser) {
     parser.yylval = new Token(yyline, yytext().substring(1,yytext().length()-1));
     return ParserJBasic.STRING;
 }
-
+{([^}]+)} {
+	/* IGNORAR OS COMENTARIOS */
+}
 [ \t\n]+ { /* IGNORE */ }
 
 . { return yytext().charAt(0); }
