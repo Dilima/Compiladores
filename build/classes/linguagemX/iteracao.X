@@ -2,7 +2,7 @@
 DeCL A, B : int;
 dECL maximo : bool;
 
-maximo = false;
+maximo <- false;
 writE "Informe o valor de A:";
 read a;
 

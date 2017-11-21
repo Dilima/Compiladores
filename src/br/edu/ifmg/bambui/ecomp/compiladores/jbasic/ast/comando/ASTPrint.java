@@ -11,52 +11,50 @@ import java.util.HashSet;
  */
 public class ASTPrint extends ASTComando {
 
-	private final ASTExpressao expressao;
-	private final String mensagem;
+    private final ASTExpressao expressao;
+    private final String mensagem;
 
-	public ASTPrint(ASTExpressao expressao) {
-		this.expressao = expressao;
-		this.mensagem = null;
-	}
+    public ASTPrint(ASTExpressao expressao) {
+        this.expressao = expressao;
+        this.mensagem = null;
+    }
 
-	public ASTPrint(String mensagem) {
-		this.expressao = null;
-		this.mensagem = mensagem;
-	}
+    public ASTPrint(String mensagem) {
+        this.expressao = null;
+        this.mensagem = mensagem;
+    }
 
-	@Override
-	public void interpretar(HashMap<String, Object> tabelaSimbolo) throws Exception {
-		if (expressao != null) {
-			expressao.interpretar(tabelaSimbolo);
-			System.out.println(tabelaSimbolo.get("!"));
-		}else{
-			System.out.println(mensagem);
-		}
-		
-		if(getProximo() != null) {
-			getProximo().interpretar(tabelaSimbolo);
-		}
-	}
+    @Override
+    public void interpretar(HashMap<String, Object> tabelaSimbolo) throws Exception {
+        if (expressao != null) {
+            expressao.interpretar(tabelaSimbolo);
+            System.out.println(tabelaSimbolo.get("!"));
+        } else {
+            System.out.println(mensagem);
+        }
 
-	@Override
-	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-		String output = "System.out.println(";
-		
-		if(expressao != null) {
-			output += expressao.compilar(tabelaSimbolo);
-		}else{
-			output += "\""+mensagem+"\"";
-		}
-		
-		output += ");";
-		
-		if(getProximo() != null) {
-			output+=getProximo().compilar(tabelaSimbolo);
-		}
-		
-		return output;
-	}
-	
-	
+        if (getProximo() != null) {
+            getProximo().interpretar(tabelaSimbolo);
+        }
+    }
+
+    @Override
+    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+        String output = "System.out.println(";
+
+        if (expressao != null) {
+            output += expressao.compilar(tabelaSimbolo);
+        } else {
+            output += "\"" + mensagem + "\"";
+        }
+
+        output += ");";
+
+        if (getProximo() != null) {
+            output += getProximo().compilar(tabelaSimbolo);
+        }
+
+        return output;
+    }
 
 }

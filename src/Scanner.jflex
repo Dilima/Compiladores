@@ -30,12 +30,20 @@ public ScannerJBasic(Reader reader, ParserJBasic parser) {
     return ParserJBasic.NUMERO;
 }
 
-"print" { return ParserJBasic.TK_PRINT; }
+"write" { return ParserJBasic.TK_PRINT; }
 "read" { return ParserJBasic.TK_READ; }
 "if" { return ParserJBasic.TK_IF; }
 "then" { return ParserJBasic.TK_THEN; }
 "else" { return ParserJBasic.TK_ELSE; }
-"end" { return ParserJBasic.TK_END; }
+"fi" { return ParserJBasic.TK_END_IF; }
+"while" { return ParserJBasic.TK_WHILE; }
+"done" { return ParserJBasic.TK_DONE; }
+"do" { return ParserJBasic.TK_DO; }
+"decl" { return ParserJBasic.TK_NEW_VAR; }
+"for" { return ParserJBasic.TK_FOR; }
+"from" { return ParserJBasic.TK_FROM; }
+"to" { return ParserJBasic.TK_TO; }
+"int" { return ParserJBasic.TK_INT; }
 
 [a-z$_][a-z0-9$_]* {
     parser.yylval = new Token(yyline,yytext());
@@ -46,7 +54,9 @@ public ScannerJBasic(Reader reader, ParserJBasic parser) {
     parser.yylval = new Token(yyline, yytext().substring(1,yytext().length()-1));
     return ParserJBasic.STRING;
 }
-
+{([^}]+)} {
+	/* IGNORAR OS COMENTARIOS */
+}
 [ \t\n]+ { /* IGNORE */ }
 
 . { return yytext().charAt(0); }
