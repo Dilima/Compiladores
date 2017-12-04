@@ -31,7 +31,7 @@ public class ASTConcatenaIdentificadores extends ASTNo {
 
     @Override
     public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-        return getEsquerda().compilar(tabelaSimbolo) + "," + getDireita().compilar(tabelaSimbolo);
+        return getEsquerda().compilar(tabelaSimbolo) + "," + getDireita().toString();
     }    
 
 }

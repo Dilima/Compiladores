@@ -24,7 +24,7 @@ public class ASTDeclaration extends ASTNo {
 
     @Override
     public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-        return "var " + identificadores.compilar(tabelaSimbolo) + " = " + type;
+        return "decl " + identificadores.compilar(tabelaSimbolo) + " : " + type;
     }
 
 }

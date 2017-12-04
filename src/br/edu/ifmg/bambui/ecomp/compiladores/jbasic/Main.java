@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		JFileChooser chooser = new JFileChooser();
-		ParserJBasic parser;
+		ParserX parser;
 		
 		System.out.println("**************** JBASIC *****************");
 		System.out.println("* EXEMPLO DA DISCIPLINA DE COMPILADORES *");
@@ -20,7 +20,7 @@ public class Main {
 		System.out.println("\n\n");
 		
 		chooser.showOpenDialog(null);
-		parser = new ParserJBasic(new FileReader(chooser.getSelectedFile()));
+		parser = new ParserX(new FileReader(chooser.getSelectedFile()));
 		
 		parser.compilar();
 	}
