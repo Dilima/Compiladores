@@ -1,0 +1,1 @@
+jflex ./Compiladores/Scanner.jflex -d ./Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic && yacc -Jclass=ParserX  -Jthrows=Exception -Jsemantic=ASTNo -Jnoconstruct -Jnorun ./Compiladores/novoParser.y && move ParserX.java ./Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic && pause

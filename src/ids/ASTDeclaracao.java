@@ -17,13 +17,13 @@ import declaracoes.ASTListaDeclaracoes;
  * @author Projeto
  */
 public class ASTDeclaracao extends ASTListaDeclaracoes{
-    private final ASTIds ids;
+    private final ASTIdentificador ids;
     private final String type;
 
-    public ASTDeclaracao(ASTIds ids, String type) {
+    public ASTDeclaracao(ASTIdentificador ids, String type) {
         this.ids = ids;
         this.type = type;
     }
-
+    
     
 }
