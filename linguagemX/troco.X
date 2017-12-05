@@ -34,3 +34,4 @@ while total > 0 do
 			fi
 		fi
 	fi
+done;

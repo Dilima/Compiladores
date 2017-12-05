@@ -20,43 +20,45 @@ import ids.*;
 
 %%
 main 
-:	vars_decl command_list 			{}	
+:	vars_decl command_list 						{}	
 ;
 
 /* CONTROLE DAS VARIAVEIS */
 vars_decl
-:	TK_NEW_VAR vars_decl_list 		{}
-|									{}
+:	TK_NEW_VAR vars_decl_list 					{}
+|												{}
 ;
 
 vars_decl_list
-:	var_decl 						{}
-|	vars_decl_list var_decl			{}
+:	var_decl ';'								{}
+|	TK_NEW_VAR vars_decl_list var_decl	';'		{}
 ;
 
 var_decl
-:	id_list ':' type_specifier ';'	{}
+:	id_list ':' type_specifier 					{}
 ;
 
 id_list
-:	id_list ',' IDENTIFICADOR		{}
-|	IDENTIFICADOR					{}
+:	IDENTIFICADOR								{}
+|	id_list ',' IDENTIFICADOR					{}
 ;
 
 type_specifier
-:	type 							{}
-|	type '[' INT ']'				{}
+:	type 										{}
+|	type '[' INT ']'							{}
 ;
 
 type
-:	INT 							{}
-|	REAL							{}
-|	BOOL							{}
+:	INT 										{}
+|	REAL										{}
+|	BOOL										{}
 ;
 
 var
-:	IDENTIFICADOR array 			{}
+:	IDENTIFICADOR  								{}
+|	IDENTIFICADOR	'[' INT ']'					{}
 ;
+
 /*	CONTROLE DOS commandS	*/
 command_list 
 :	command ';' { $$ = $1; System.out.println("command 1");}
@@ -64,7 +66,7 @@ command_list
 ;
 
 command 
-:   IDENTIFICADOR '=' expr { $$ = new ASTAtribuicao(((Token)$1).getLexema(),(ASTExpressao)$3); }
+:   var '=' expr {/* $$ = new ASTAtribuicao(((Token)$1).getLexema(),(ASTExpressao)$3); */}
 |   TK_PRINT expr { $$ = new ASTPrint((ASTExpressao)$2); }
 |	TK_PRINT STRING { $$ = new ASTPrint(((Token)$2).getLexema()); }
 |   TK_READ IDENTIFICADOR { $$ = new ASTRead(((Token)$2).getLexema()); }
@@ -85,7 +87,7 @@ expr /* corrigir? separar expr booleanas*/
 |	expr '<=' expr													{}
 |	'(' expr ')' { $$ = $2; }
 |	IDENTIFICADOR { $$ = new ASTAcessoVariavel(((Token)$1).getLexema()); }
-|	NUMERO { $$ = new ASTNumero(new Double(((Token)$1).getLexema())); }
+|	REAL { $$ = new ASTREAL(new Double(((Token)$1).getLexema())); }
 ;
 %%
 /* PARTE INTERNA DA CLASSE */
