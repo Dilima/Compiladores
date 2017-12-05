@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/escola/compiladores/Compiladores/src/Scanner.jflex</file>
-            <file>file:/E:/escola/compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/Main.java</file>
-            <file>file:/E:/escola/compiladores/Compiladores/src/Makefile</file>
-            <file>file:/E:/escola/compiladores/Compiladores/src/Parser.y</file>
-            <file>file:/E:/escola/compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/ParserJBasic.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/ids/ASTIds.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/ids/ASTIdentificador.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/ScannerX.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/Main.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/ParserX.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/ids/ASTDeclaracao.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/ASTNo.java</file>
         </group>
     </open-files>
 </project-private>

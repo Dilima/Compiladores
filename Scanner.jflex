@@ -22,11 +22,22 @@ public ScannerX(Reader reader, ParserX parser) {
 
 %%
 
-[0-9]+(\.[0-9]+)?(E[+-]?[0-9])? {
+[0-9]+(E[+-]?[0-9])? {
     parser.yylval = new Token(yyline,yytext());
-    return ParserX.NUMERO;
+    return ParserX.REAL;
 }
-
+[0-9]+(\.[0-9]+)?{
+    parser.yylval = new Token(yyline,yytext());
+    return ParserX.REAL;	
+}
+[0-9]+{
+	parser.yylval = new Token(yyline,yytext());
+    return ParserX.INT;	
+}
+[0-9]+((\-[0-9]+)?(\+[0-9]+)?(\*[0-9]+)?)*{
+	parser.yylval = new Token(yyline,yytext());
+    return ParserX.INT;	
+}
 "write" { return ParserX.TK_PRINT; }
 "read" { return ParserX.TK_READ; }
 "if" { return ParserX.TK_IF; }

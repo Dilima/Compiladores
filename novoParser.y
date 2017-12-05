@@ -1,5 +1,4 @@
 /* CONFIGURAÇÃO DO PARSER */
-
 %token TK_PRINT TK_READ TK_IF TK_THEN TK_ELSE TK_END_IF TK_WHILE TK_DONE TK_DO TK_NEW_VAR TK_FOR TK_FROM TK_TO TK_INT TK_END
 %token IDENTIFICADOR STRING NUMERO TYPE OR AND NOT MOD
 
@@ -22,14 +21,12 @@ import ids.*;
 %%
 /* REGRAS GRAMATICAIS */
 
-main : root { raiz = $1;  System.out.println("a1");};
+main 
+:root { raiz = $1;  System.out.println("a1");};
 
 root: declaracoes lista_comandos {$$ = $2; System.out.println("a2");};
 
-lista_comandos 
-:	comando ';' { $$ = $1; System.out.println("comando 1");}
-|   lista_comandos comando ';' { $$ = $1; buscarUltimoComando((ASTComando)$$).setProximo((ASTComando)$2); System.out.println("comadno 2");}
-;
+
 
 declaracoes 
 :	TK_NEW_VAR listadeclaracaovariavel {$$ = $2;System.out.println("a5");}
@@ -55,8 +52,13 @@ id_final
 : IDENTIFICADOR { $$ = new ASTIdentificador(((Token)$1).getLexema()); System.out.println("a13"); }
 ;
 
-comando :
-    IDENTIFICADOR '=' expr { $$ = new ASTAtribuicao(((Token)$1).getLexema(),(ASTExpressao)$3); }
+lista_comandos 
+:	comando ';' { $$ = $1; System.out.println("comando 1");}
+|   lista_comandos comando ';' { $$ = $1; buscarUltimoComando((ASTComando)$$).setProximo((ASTComando)$2); System.out.println("comadno 2");}
+;
+
+comando 
+:    IDENTIFICADOR '=' expr { $$ = new ASTAtribuicao(((Token)$1).getLexema(),(ASTExpressao)$3); }
 |   TK_PRINT expr { $$ = new ASTPrint((ASTExpressao)$2); }
 |	TK_PRINT STRING { $$ = new ASTPrint(((Token)$2).getLexema()); }
 |   TK_READ IDENTIFICADOR { $$ = new ASTRead(((Token)$2).getLexema()); }
@@ -64,8 +66,8 @@ comando :
 |   TK_IF expr TK_THEN lista_comandos TK_ELSE lista_comandos TK_END { $$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4,(ASTComando)$6); }
 ;
 
-expr :
-    expr '+' expr { $$ = new ASTSoma((ASTExpressao)$1,(ASTExpressao)$3); }
+expr 
+:   expr '+' expr { $$ = new ASTSoma((ASTExpressao)$1,(ASTExpressao)$3); }
 |   expr '-' expr { $$ = new ASTSubtracao((ASTExpressao)$1,(ASTExpressao)$3); }
 |   expr '*' expr { $$ = new ASTMultiplicacao((ASTExpressao)$1,(ASTExpressao)$3); }
 |   expr '/' expr { $$ = new ASTDivisao((ASTExpressao)$1,(ASTExpressao)$3); }
