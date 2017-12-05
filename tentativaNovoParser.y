@@ -66,7 +66,7 @@ command_list
 ;
 
 command 
-:   var '=' expr {/* $$ = new ASTAtribuicao(((Token)$1).getLexema(),(ASTExpressao)$3); */}
+:   var '=' expr { $$ = new ASTAtribuicao(((Token)$1).getLexema(),(ASTExpressao)$3); }
 |   TK_PRINT expr { $$ = new ASTPrint((ASTExpressao)$2); }
 |	TK_PRINT STRING { $$ = new ASTPrint(((Token)$2).getLexema()); }
 |   TK_READ IDENTIFICADOR { $$ = new ASTRead(((Token)$2).getLexema()); }
