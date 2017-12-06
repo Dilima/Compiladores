@@ -1,11 +1,11 @@
 /* CONFIGURAÇÃO DO PARSER */
 
-%token TK_PRINT TK_READ TK_TO TK_IF TK_THEN TK_ELSE TK_END_IF TK_WHILE TK_DONE TK_DO TK_NEW_VAR TK_FOR TK_FROM TK_TO TK_INT TK_BOOL TK_REAL TK_END
+%token TK_PRINT TK_READ TK_TO TK_IF TK_THEN TK_ELSE TK_END_IF TK_WHILE TK_DONE TK_DO TK_NEW_VAR TK_FOR TK_FROM TK_TO TK_INT TK_BOOL TK_REAL TK_END TK_BT TK_LT
 %token IDENTIFICADOR STRING REAL BOOL INT TYPE OR AND NOT MOD
 
 /* PRECEDENCIA */
-%left '<' '>' '<=' '>='
-%left '+' '-'
+%left '<' '>' TK_BT 
+%left '+' '-' TK_LT
 %left '*' '/'
 %left ','
 
@@ -20,80 +20,79 @@ import ids.*;
 
 %%
 main 
-: program	{raiz = $1;}
+: program	{System.out.println(": program	");}
 ;
 
 program 
-:	vars_decl comando_list 						{System.out.println("vars_decl /*comando_list*/ 						\n");};	
+:	vars_decl comando_list 						{System.out.println(":	vars_decl comando_list 						");};	
 ;
 
 /* CONTROLE DAS VARIAVEIS */
 vars_decl
-:	vars_decl_list 								{System.out.println("vars_decl_list 					\n");}
-|												{System.out.println("{\n");}
+:	vars_decl_list 								{System.out.println(":	vars_decl_list 								");}
+|												{System.out.println("|												");}
 ;
 
 vars_decl_list
-:	var_decl 									{System.out.println("TK_NEW_VAR var_decl ';'								\n");}
-|	vars_decl_list var_decl 					{System.out.println("TK_NEW_VAR vars_decl_list var_decl	';'		\n");}
+:	var_decl 									{System.out.println(":	var_decl 									");}
+|	vars_decl_list var_decl 					{System.out.println("|	vars_decl_list var_decl 					");}
 ;
 
 var_decl
-:	TK_NEW_VAR id_list ':' type_specifier 	';' 				{System.out.println("id_list ':' type_specifier 					\n");}
+:	TK_NEW_VAR id_list ':' type_specifier 	';' 				{System.out.println(":	TK_NEW_VAR id_list ':' type_specifier 	';' 				");}
 ;
 
 id_list
-:	IDENTIFICADOR								{System.out.println("IDENTIFICADOR								\n");}
-|	id_list ',' IDENTIFICADOR					{System.out.println("id_list ',' IDENTIFICADOR					\n");}
+:	IDENTIFICADOR								{System.out.println(":	IDENTIFICADOR								");}
+|	id_list ',' IDENTIFICADOR					{System.out.println("|	id_list ',' IDENTIFICADOR					");}
 ;
 
 type_specifier
-:	type 										{System.out.println("type 										\n");}
-|	type '[' INT ']'							{System.out.println("type '[' INT ']'							\n");}
-|	type '[' expr ']'							{System.out.println("type '[' expr ']'							\n");}
+:	type 										{System.out.println(":	type 										");}
+|	type '[' expr ']'							{System.out.println("|	type '[' expr ']'							");}
 ;
 
 type
-:	TK_INT 										{System.out.println("INT										\n");}
-|	TK_REAL										{System.out.println("REAL										\n");}
-|	TK_BOOL										{System.out.println("BOOL										\n");}
+:	TK_INT 										{System.out.println(":	TK_INT 										");}
+|	TK_REAL										{System.out.println("|	TK_REAL										");}
+|	TK_BOOL										{System.out.println("|	TK_BOOL										");}
 ;
 
 var
-:	IDENTIFICADOR  								{System.out.println("IDENTIFICADOR  								\n");}
-|	IDENTIFICADOR	'[' INT ']'					{System.out.println("IDENTIFICADOR	'[' INT ']'					\n");}
-|	IDENTIFICADOR	'[' expr ']'				{System.out.println("IDENTIFICADOR	'[' expr ']'				\n");}
+:	IDENTIFICADOR  								{System.out.println(":	IDENTIFICADOR  								");}
+|	IDENTIFICADOR	'[' expr ']'				{System.out.println("|	IDENTIFICADOR	'[' expr ']'				");}
 ;
 
 /*	CONTROLE DOS comandos	*/
 comando_list 
-:	comando ';' { $$ = $1; System.out.println("comando 1");}
-|   comando_list comando ';' { $$ = $1; buscarUltimocomando((ASTComando)$$).setProximo((ASTComando)$2); System.out.println("comadno 2");}
+:	comando  {System.out.println(":	comando ");}
+|   comando_list comando {System.out.println("|   comando_list comando ");}
 ;
 
 comando 
-:   var '=' expr { $$ = new ASTAtribuicao(((Token)$1).getLexema(),(ASTExpressao)$3); }
-|   TK_PRINT expr { $$ = new ASTPrint((ASTExpressao)$2); }
-|	TK_PRINT STRING { $$ = new ASTPrint(((Token)$2).getLexema()); }
-|   TK_READ IDENTIFICADOR { $$ = new ASTRead(((Token)$2).getLexema()); }
-|   TK_IF expr TK_THEN comando_list TK_END_IF { $$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4); }
-|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF { $$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4,(ASTComando)$6); }
-|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	{System.out.println("TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	\n");}
-|	TK_WHILE expr TK_DO comando_list TK_DONE					{System.out.println("TK_WHILE expr TK_DO comando_list TK_DONE					\n");}
+:   var '=' expr ';'{System.out.println(":   var '=' expr ");}
+|   TK_PRINT expr ';'{System.out.println("|   TK_PRINT expr ");}
+|	TK_PRINT STRING ';'{System.out.println("|	TK_PRINT STRING ");}
+|   TK_READ IDENTIFICADOR ';'{System.out.println("|   TK_READ IDENTIFICADOR ");}
+|   TK_IF expr TK_THEN comando_list TK_END_IF {System.out.println("|   TK_IF expr TK_THEN comando_list TK_END_IF ");}
+|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF {System.out.println("|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF ");}
+|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	';'{System.out.println("|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	");}
+|	TK_WHILE expr TK_DO comando_list TK_DONE					';'{System.out.println("|	TK_WHILE expr TK_DO comando_list TK_DONE					");}
 ;
 
 expr /* corrigir? separar expr booleanas*/
-:   expr '+' expr { $$ = new ASTSoma((ASTExpressao)$1,(ASTExpressao)$3); }
-|   expr '-' expr { $$ = new ASTSubtracao((ASTExpressao)$1,(ASTExpressao)$3); }
-|   expr '*' expr { $$ = new ASTMultiplicacao((ASTExpressao)$1,(ASTExpressao)$3); }
-|   expr '/' expr { $$ = new ASTDivisao((ASTExpressao)$1,(ASTExpressao)$3); }
-|   expr '<' expr { $$ = new ASTMenor((ASTExpressao)$1,(ASTExpressao)$3); }
-|   expr '>' expr { $$ = new ASTMaior((ASTExpressao)$1,(ASTExpressao)$3); }
-|	expr '>=' expr													{System.out.println("expr '>=' expr													\n");}
-|	expr '<=' expr													{System.out.println("expr '<=' expr													\n");}
-|	'(' expr ')' { $$ = $2; }
-|	IDENTIFICADOR { $$ = new ASTAcessoVariavel(((Token)$1).getLexema()); }
-|	REAL {}
+:   expr '+' expr {System.out.println(":   expr '+' expr ");}
+|   expr '-' expr {System.out.println("|   expr '-' expr ");}
+|   expr '*' expr {System.out.println("|   expr '*' expr ");}
+|   expr '/' expr {System.out.println("|   expr '/' expr ");}
+|   expr '<' expr {System.out.println("|   expr '<' expr ");}
+|   expr '>' expr {System.out.println("|   expr '>' expr ");}
+|	expr TK_BT expr													{System.out.println("|	expr TK_BT expr													");}
+|	expr TK_LT expr													{System.out.println("|	expr TK_LT expr													");}
+|	'(' expr ')' {System.out.println("|	'(' expr ')' ");}
+|	IDENTIFICADOR {System.out.println("|	IDENTIFICADOR ");}
+|	REAL {System.out.println("|	REAL ");}
+|	INT {System.out.println("|	INT ");}
 ;
 %%
 /* PARTE INTERNA DA CLASSE */
@@ -138,7 +137,7 @@ public void compilar() throws Exception {
     String output;
 	String saida;
 	yyparse();
-	saida = raiz.compilar(tabelaSimbolo);
+	/*saida = raiz.compilar(tabelaSimbolo);
 	
 	output  = "import java.io.*;";
 	output += "import java.util.*;";
@@ -158,5 +157,5 @@ public void compilar() throws Exception {
 	output += "}}";
 	printWriter = new PrintWriter("output.x","UTF-8");
 	printWriter.print(output);
-	printWriter.close();
+	printWriter.close();*/
 }

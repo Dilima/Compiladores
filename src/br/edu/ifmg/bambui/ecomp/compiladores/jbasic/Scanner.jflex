@@ -22,11 +22,11 @@ public ScannerX(Reader reader, ParserX parser) {
 
 %%
 
-[0-9]+(E[+-]?[0-9])? {
+[0-9]+(E[+-]?[0-9]) {
     parser.yylval = new Token(yyline,yytext());
     return ParserX.REAL;
 }
-[0-9]+(\.[0-9]+)? {
+[0-9]+(\.[0-9]+) {
     parser.yylval = new Token(yyline,yytext());
     return ParserX.REAL;    
 }
@@ -34,10 +34,10 @@ public ScannerX(Reader reader, ParserX parser) {
     parser.yylval = new Token(yyline,yytext());
     return ParserX.INT; 
 }
-[0-9]+((\-[0-9]+)?(\+[0-9]+)?(\*[0-9]+)?)* {
+/*[0-9]+((\-[0-9]+)?(\+[0-9]+)?(\*[0-9]+)?)* {
     parser.yylval = new Token(yyline,yytext());
     return ParserX.INT; 
-}
+}*/
 (\-)?[0-9]+ {
     parser.yylval = new Token(yyline,yytext());
     return ParserX.INT; 
@@ -61,6 +61,8 @@ public ScannerX(Reader reader, ParserX parser) {
 "or"  { return ParserX.OR; }
 "not" { return ParserX.NOT; }
 "mod" { return ParserX.MOD; }
+">=" { return ParserX.TK_BT; }
+"<=" { return ParserX.TK_LT; }
 
 [a-z$_][a-z0-9$_]* {
     parser.yylval = new Token(yyline,yytext());
