@@ -63,6 +63,7 @@ public ScannerX(Reader reader, ParserX parser) {
 "mod" { return ParserX.MOD; }
 ">=" { return ParserX.TK_BT; }
 "<=" { return ParserX.TK_LT; }
+"<-" { return ParserX.TK_ATRIBUICAO; }
 
 [a-z$_][a-z0-9$_]* {
     parser.yylval = new Token(yyline,yytext());

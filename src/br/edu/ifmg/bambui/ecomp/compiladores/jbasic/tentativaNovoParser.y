@@ -1,6 +1,6 @@
 /* CONFIGURAÇÃO DO PARSER */
 
-%token TK_PRINT TK_READ TK_TO TK_IF TK_THEN TK_ELSE TK_END_IF TK_WHILE TK_DONE TK_DO TK_NEW_VAR TK_FOR TK_FROM TK_TO TK_INT TK_BOOL TK_REAL TK_END TK_BT TK_LT
+%token TK_PRINT TK_READ TK_TO TK_IF TK_THEN TK_ELSE TK_END_IF TK_WHILE TK_DONE TK_DO TK_ATRIBUICAO TK_NEW_VAR TK_FOR TK_FROM TK_TO TK_INT TK_BOOL TK_REAL TK_END TK_BT TK_LT
 %token IDENTIFICADOR STRING REAL BOOL INT TYPE OR AND NOT MOD
 
 /* PRECEDENCIA */
@@ -70,15 +70,22 @@ comando_list
 ;
 
 comando 
-:   var '=' expr ';'{System.out.println(":   var '=' expr ");}
-|   TK_PRINT expr ';'{System.out.println("|   TK_PRINT expr ");}
-|	TK_PRINT STRING ';'{System.out.println("|	TK_PRINT STRING ");}
-|   TK_READ IDENTIFICADOR ';'{System.out.println("|   TK_READ IDENTIFICADOR ");}
+:   var TK_ATRIBUICAO expr ';' {System.out.println(":   var '=' expr ");}
+|   TK_PRINT texto ';' {System.out.println("|   TK_PRINT texto ");}
+|   TK_READ IDENTIFICADOR ';' {System.out.println("|   TK_READ IDENTIFICADOR ");}
 |   TK_IF expr TK_THEN comando_list TK_END_IF {System.out.println("|   TK_IF expr TK_THEN comando_list TK_END_IF ");}
 |   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF {System.out.println("|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF ");}
 |	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	';'{System.out.println("|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	");}
-|	TK_WHILE expr TK_DO comando_list TK_DONE					';'{System.out.println("|	TK_WHILE expr TK_DO comando_list TK_DONE					");}
+|	TK_WHILE expr TK_DO comando_list TK_DONE ';' {System.out.println("|	TK_WHILE expr TK_DO comando_list TK_DONE					");}
 ;
+
+texto
+:	expr {System.out.println(":	expr ");}
+|	STRING {System.out.println("|	STRING ");}
+| 	texto ',' expr {System.out.println("| 	texto ',' expr ");}
+| 	texto ',' STRING {System.out.println("| 	texto ',' STRING ");}
+;
+
 
 expr /* corrigir? separar expr booleanas*/
 :   expr '+' expr {System.out.println(":   expr '+' expr ");}
