@@ -1,5 +1,5 @@
-package br.edu.ifmg.bambui.ecomp.compiladores.jbasic.ast.expr;
-
+package variaveis.tipos;
+import br.edu.ifmg.bambui.ecomp.compiladores.jbasic.ast.expr.*;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -7,11 +7,11 @@ import java.util.HashSet;
  * Representação de uma constante numérica na árvore sintática
  * @author laerte
  */
-public class ASTNumero extends ASTExpressao {
+public class ASTReal extends ASTExpressao {
 
 	private final Double valor;
 
-	public ASTNumero(Double valor) {
+	public ASTReal(Double valor) {
 		super(null, null);
 		this.valor = valor;
 	}

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ids;
+package variaveis;
 
 
 import java.util.HashMap;
@@ -17,10 +17,10 @@ import declaracoes.ASTListaDeclaracoes;
  * @author Projeto
  */
 public class ASTDeclaracao extends ASTListaDeclaracoes{
-    private final ASTIdentificador ids;
+    private final int ids;
     private final String type;
 
-    public ASTDeclaracao(ASTIdentificador ids, String type) {
+    public ASTDeclaracao(int ids, String type) {
         this.ids = ids;
         this.type = type;
     }

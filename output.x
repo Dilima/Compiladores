@@ -1,0 +1,1 @@
+import java.io.*;import java.util.*;public class JBasicOutput{public static void main(String[] args){Scanner scanner = new Scanner(System.in);double ;asdasdas}}

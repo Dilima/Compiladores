@@ -28,19 +28,19 @@ public ScannerX(Reader reader, ParserX parser) {
 }
 [0-9]+(\.[0-9]+)? {
     parser.yylval = new Token(yyline,yytext());
-    return ParserX.REAL;	
+    return ParserX.REAL;    
 }
 [0-9]+ {
-	parser.yylval = new Token(yyline,yytext());
-    return ParserX.INT;	
+    parser.yylval = new Token(yyline,yytext());
+    return ParserX.INT; 
 }
 [0-9]+((\-[0-9]+)?(\+[0-9]+)?(\*[0-9]+)?)* {
-	parser.yylval = new Token(yyline,yytext());
-    return ParserX.INT;	
+    parser.yylval = new Token(yyline,yytext());
+    return ParserX.INT; 
 }
 (\-)?[0-9]+ {
-	parser.yylval = new Token(yyline,yytext());
-    return ParserX.INT;	
+    parser.yylval = new Token(yyline,yytext());
+    return ParserX.INT; 
 }
 
 "write" { return ParserX.TK_PRINT; }
@@ -72,8 +72,8 @@ public ScannerX(Reader reader, ParserX parser) {
     return ParserX.STRING;
 }
 \{([^}]+)\} {
-	/* IGNORAR OS COMENTARIOS */
+    /* IGNORAR OS COMENTARIOS */
 }
-[ \t\n]+ { /* IGNORE */ }
+[(\t)?(\n)?]+ { /* IGNORE */ }
 
 . { return yytext().charAt(0); }
