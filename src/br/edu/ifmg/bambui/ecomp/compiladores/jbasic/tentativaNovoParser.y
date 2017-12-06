@@ -24,7 +24,7 @@ main
 ;
 
 program 
-:	vars_decl /*comando_list*/ 						{System.out.println("vars_decl /*comando_list*/ 						\n");};	
+:	vars_decl comando_list 						{System.out.println("vars_decl /*comando_list*/ 						\n");};	
 ;
 
 /* CONTROLE DAS VARIAVEIS */
@@ -76,8 +76,8 @@ comando
 |   TK_PRINT expr { $$ = new ASTPrint((ASTExpressao)$2); }
 |	TK_PRINT STRING { $$ = new ASTPrint(((Token)$2).getLexema()); }
 |   TK_READ IDENTIFICADOR { $$ = new ASTRead(((Token)$2).getLexema()); }
-|   TK_IF expr TK_THEN comando_list TK_END { $$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4); }
-|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END { $$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4,(ASTComando)$6); }
+|   TK_IF expr TK_THEN comando_list TK_END_IF { $$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4); }
+|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF { $$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4,(ASTComando)$6); }
 |	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	{System.out.println("TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	\n");}
 |	TK_WHILE expr TK_DO comando_list TK_DONE					{System.out.println("TK_WHILE expr TK_DO comando_list TK_DONE					\n");}
 ;
