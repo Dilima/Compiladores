@@ -57,6 +57,8 @@ public ScannerX(Reader reader, ParserX parser) {
 "from" { return ParserX.TK_FROM; }
 "to" { return ParserX.TK_TO; }
 "int" { return ParserX.TK_INT; }
+"real" { return ParserX.TK_REAL; }
+"bool" { return ParserX.TK_BOOL; }
 "and" { return ParserX.AND; }
 "or"  { return ParserX.OR; }
 "not" { return ParserX.NOT; }
@@ -64,9 +66,10 @@ public ScannerX(Reader reader, ParserX parser) {
 ">=" { return ParserX.TK_BT; }
 "<=" { return ParserX.TK_LT; }
 "<-" { return ParserX.TK_ATRIBUICAO; }
+"random()" {return ParserX.FUNCTION_RANDOM;}
 
-[a-z$_][a-z0-9$_]* {
-    parser.yylval = new Token(yyline,yytext());
+[a-zA-Z$_][a-zA-Z0-9$_]* {
+    parser.yylval = new Token(yyline,yytext().toLowerCase());
     return ParserX.IDENTIFICADOR;
 }
 

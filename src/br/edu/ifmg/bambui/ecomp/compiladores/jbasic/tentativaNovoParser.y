@@ -1,13 +1,17 @@
 /* CONFIGURAÇÃO DO PARSER */
 
-%token TK_PRINT TK_READ TK_TO TK_IF TK_THEN TK_ELSE TK_END_IF TK_WHILE TK_DONE TK_DO TK_ATRIBUICAO TK_NEW_VAR TK_FOR TK_FROM TK_TO TK_INT TK_BOOL TK_REAL TK_END TK_BT TK_LT
+%token TK_PRINT TK_READ TK_TO TK_IF TK_THEN TK_ELSE TK_END_IF TK_WHILE TK_DONE TK_DO TK_ATRIBUICAO FUNCTION_RANDOM TK_NEW_VAR TK_FOR TK_FROM TK_TO TK_INT TK_BOOL TK_REAL TK_END TK_BT TK_LT
 %token IDENTIFICADOR STRING REAL BOOL INT TYPE OR AND NOT MOD
 
 /* PRECEDENCIA */
+%left NOT 
+%left OR 
+%left AND 
 %left '<' '>' TK_BT 
 %left '+' '-' TK_LT
 %left '*' '/'
 %left ','
+%left '='
 
 %{
 import java.io.*;
@@ -25,6 +29,7 @@ main
 
 program 
 :	vars_decl comando_list 						{System.out.println(":	vars_decl comando_list 						");};	
+| 	vars_decl 									{System.out.println(":	vars_decl				");};
 ;
 
 /* CONTROLE DAS VARIAVEIS */
@@ -70,12 +75,12 @@ comando_list
 ;
 
 comando 
-:   var TK_ATRIBUICAO expr ';' {System.out.println(":   var '=' expr ");}
+:   var TK_ATRIBUICAO expr ';' {System.out.println(":   var <- expr ");}
 |   TK_PRINT texto ';' {System.out.println("|   TK_PRINT texto ");}
 |   TK_READ IDENTIFICADOR ';' {System.out.println("|   TK_READ IDENTIFICADOR ");}
 |   TK_IF expr TK_THEN comando_list TK_END_IF {System.out.println("|   TK_IF expr TK_THEN comando_list TK_END_IF ");}
 |   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF {System.out.println("|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF ");}
-|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	';'{System.out.println("|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	");}
+|	TK_FOR var TK_FROM expr TK_TO expr TK_DO comando_list TK_DONE	';'{System.out.println("|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	");}
 |	TK_WHILE expr TK_DO comando_list TK_DONE ';' {System.out.println("|	TK_WHILE expr TK_DO comando_list TK_DONE					");}
 ;
 
@@ -94,12 +99,16 @@ expr /* corrigir? separar expr booleanas*/
 |   expr '/' expr {System.out.println("|   expr '/' expr ");}
 |   expr '<' expr {System.out.println("|   expr '<' expr ");}
 |   expr '>' expr {System.out.println("|   expr '>' expr ");}
+|   expr '=' expr {System.out.println("|   expr '=' expr ");}
+|   expr AND expr {System.out.println("|   expr AND expr ");}
 |	expr TK_BT expr													{System.out.println("|	expr TK_BT expr													");}
 |	expr TK_LT expr													{System.out.println("|	expr TK_LT expr													");}
 |	'(' expr ')' {System.out.println("|	'(' expr ')' ");}
-|	IDENTIFICADOR {System.out.println("|	IDENTIFICADOR ");}
+|	var {System.out.println("|	var ");}
+|	NOT expr {System.out.println("|	NOT expr ");}	
 |	REAL {System.out.println("|	REAL ");}
 |	INT {System.out.println("|	INT ");}
+|	FUNCTION_RANDOM {System.out.println("|	random ");}
 ;
 %%
 /* PARTE INTERNA DA CLASSE */
