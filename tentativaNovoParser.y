@@ -24,7 +24,7 @@ main
 ;
 
 program 
-:	vars_decl_list /*comando_list*/ 						{System.out.println("vars_decl /*comando_list*/ 						\n");};	
+:	vars_decl_list comando_list						{$$ = new ASTProgram((ASTDeclaracao)$1,(ASTComando)$2); System.out.println("vars_decl /*comando_list*/ 						\n");};	
 ;
 
 /* CONTROLE DAS VARIAVEIS 
@@ -34,29 +34,29 @@ vars_decl
 ;*/
 
 vars_decl_list
-:	TK_NEW_VAR var_decl ';'						{System.out.println("TK_NEW_VAR var_decl ';'								\n");}
-|	vars_decl_list TK_NEW_VAR var_decl ';' 			{System.out.println("TK_NEW_VAR vars_decl_list var_decl	';'		\n");}
+:	TK_NEW_VAR var_decl ';'						{$$ = $2;System.out.println("TK_NEW_VAR var_decl ';'								\n");}
+|	vars_decl_list TK_NEW_VAR var_decl ';' 		{$$ = $1; buscaUltimaDecl((ASTDeclaracao)$$).setProximo((ASTDeclaracao)$3); System.out.println("TK_NEW_VAR vars_decl_list var_decl	';'		\n");}
 ;
 
 var_decl
-:	id_list ':' type_specifier 					{System.out.println("id_list ':' type_specifier 					\n");}
+:	id_list ':' type_specifier 					{$$ = new ASTDeclaracao((ASTListaID)$1,(ASTTipoEspecifico)$3); System.out.println("id_list ':' type_specifier 					\n");}
 ;
 
 id_list
-:	IDENTIFICADOR								{System.out.println("IDENTIFICADOR								\n");}
-|	id_list ',' IDENTIFICADOR					{System.out.println("id_list ',' IDENTIFICADOR					\n");}
+:	IDENTIFICADOR								{ $$ = new ASTListaID((Token)$1);System.out.println("IDENTIFICADOR								\n");}
+|	id_list ',' IDENTIFICADOR					{ $$  = buscaUltimoID((ASTListaID)$$).setProximo(new ASTListaID((Token)$3); System.out.println("id_list ',' IDENTIFICADOR					\n");}
 ;
 
 type_specifier
-:	type 										{System.out.println("type 										\n");}
-|	type '[' INT ']'							{System.out.println("type '[' INT ']'							\n");}
-|	type '[' expr ']'							{System.out.println("type '[' expr ']'							\n");}
+:	type 										{$$ = new ASTTipoEspecifico((ASTTipo)$1); System.out.println("type 										\n");}
+|	type '[' INT ']'							{$$ = new ASTTipoEspecifico((ASTTipo)$1,(Token)$3); System.out.println("type '[' INT ']'							\n");}
+|	type '[' expr ']'							{$$ = new ASTTipoEspecifico((ASTTipo)$1,(ASTExpressao)$3); System.out.println("type '[' expr ']'							\n");}
 ;
 
 type
-:	TK_INT 										{System.out.println("INT										\n");}
-|	REAL										{System.out.println("REAL										\n");}
-|	BOOL										{System.out.println("BOOL										\n");}
+:	TK_INT 										{$$ = new ASTTipo((Token)$1); System.out.println("INT										\n");}
+|	REAL										{$$ = new ASTTipo((Token)$1); System.out.println("REAL										\n");}
+|	BOOL										{$$ = new ASTTipo((Token)$1); System.out.println("BOOL										\n");}
 ;
 /*
 var

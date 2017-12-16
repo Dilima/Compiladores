@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/ids/ASTIds.java</file>
-            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/ids/ASTIdentificador.java</file>
-            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/ScannerX.java</file>
-            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/Main.java</file>
-            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/ParserX.java</file>
-            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/ids/ASTDeclaracao.java</file>
-            <file>file:/C:/Users/Projeto/Desktop/Compiladores/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/jbasic/ASTNo.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/Main.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ParserX.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ASTProgram.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ast/expr/ASTAcessoVariavel.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ast/comando/ASTTexto.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ast/comando/ASTVar.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ast/expr/ASTRandom.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ast/expr/ASTSubtracao.java</file>
+            <file>file:/C:/Users/Projeto/Desktop/comp/Compiladores/src/br/edu/ifmg/bambui/ecomp/compiladores/linguagemX/ast/comando/ASTPrint.java</file>
         </group>
     </open-files>
 </project-private>

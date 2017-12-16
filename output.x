@@ -1,1 +1,13 @@
-import java.io.*;import java.util.*;public class JBasicOutput{public static void main(String[] args){Scanner scanner = new Scanner(System.in);double ;asdasdas}}
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(void){
+null a;
+for(i=1;i<=20;i++){
+swap = v[i];
+v[i] = v[j];
+
+}
+
+
+}
