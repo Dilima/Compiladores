@@ -26,7 +26,7 @@ public class ASTMenor extends ASTExpressao {
     }
 
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-        return getEsquerda().compilar(tabelaSimbolo) + " < " + getDireita().compilar(tabelaSimbolo);
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+        return getEsquerda().compilarC(tabelaSimbolo) + " < " + getDireita().compilarC(tabelaSimbolo);
     }
 }

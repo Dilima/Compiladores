@@ -22,18 +22,18 @@ public class ASTRead extends ASTComando {
         
 	
 	@Override
-	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+	public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
 		String output = "scanf(\"%d\",&";
 		
 		/*if(!tabelaSimbolo.contains(getIdentificador())) {
 			tabelaSimbolo.add(getIdentificador());
 		}
 		*/
-		output += getIdentificador().compilar(tabelaSimbolo)+");";
+		output += getIdentificador().compilarC(tabelaSimbolo)+");";
 		output+="\n";
                 
                 if(getProximo() != null) {
-			output+=getProximo().compilar(tabelaSimbolo);
+			output+=getProximo().compilarC(tabelaSimbolo);
 		}
 		
 		return output;

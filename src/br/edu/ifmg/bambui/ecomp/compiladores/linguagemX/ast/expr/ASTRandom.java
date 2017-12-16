@@ -18,7 +18,7 @@ public class ASTRandom extends ASTExpressao {
     }
 
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         return "rand()";
     }
     

@@ -30,13 +30,13 @@ public class ASTWhile extends ASTComando{
     }
     
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-        String output = "while("+getCondicao().compilar(tabelaSimbolo)+
-                "){\n "+getBlococomandos().compilar(tabelaSimbolo)+
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+        String output = "while("+getCondicao().compilarC(tabelaSimbolo)+
+                "){\n "+getBlococomandos().compilarC(tabelaSimbolo)+
                 "\n}\n";
         
         if(getProximo()!=null){
-            output+=getProximo().compilar(tabelaSimbolo);
+            output+=getProximo().compilarC(tabelaSimbolo);
         }
         return output;
     }

@@ -28,7 +28,7 @@ public class ASTAtribuicao extends ASTComando {
 
 	
 	@Override
-	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+	public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
 		String output;
 		
 		/*if(!tabelaSimbolo.contains(get)) {
@@ -36,11 +36,11 @@ public class ASTAtribuicao extends ASTComando {
 		}
 		*/
                 
-		output = getIdentificador().compilar(tabelaSimbolo)+" = "+getExpressao().compilar(tabelaSimbolo)+";";
+		output = getIdentificador().compilarC(tabelaSimbolo)+" = "+getExpressao().compilarC(tabelaSimbolo)+";";
 		output+="\n";
                 
 		if(getProximo() != null) {
-			output+=getProximo().compilar(tabelaSimbolo);
+			output+=getProximo().compilarC(tabelaSimbolo);
 		}
 		
 		return output;

@@ -25,7 +25,10 @@ public class ASTNo {
 		throw new RuntimeException("Não é possível utilizar este método da classe ASTNo, é necessário sobreescrevê-lo");
 	}
 	
-	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+	public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+		throw new RuntimeException("Não é possível utilizar este método da classe ASTNo, é necessário sobreescrevê-lo");
+	}
+        public String compilarMIPS(HashSet<String> tabelaSimbolo) throws Exception {
 		throw new RuntimeException("Não é possível utilizar este método da classe ASTNo, é necessário sobreescrevê-lo");
 	}
 }

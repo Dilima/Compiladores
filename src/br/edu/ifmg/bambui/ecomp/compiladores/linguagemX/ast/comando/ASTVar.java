@@ -45,10 +45,10 @@ public class ASTVar extends ASTExpressao{
     }
 
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         String output = getIdentificador();
         if(getExpressao()!=null){
-            output+="["+getExpressao().compilar(tabelaSimbolo)+"]";
+            output+="["+getExpressao().compilarC(tabelaSimbolo)+"]";
         }
         return output;
     }

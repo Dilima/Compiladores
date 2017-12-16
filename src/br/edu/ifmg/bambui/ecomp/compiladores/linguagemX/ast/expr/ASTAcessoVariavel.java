@@ -17,7 +17,7 @@ public class ASTAcessoVariavel extends ASTExpressao {
 	}
 
 	@Override
-	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+	public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
 		if(!tabelaSimbolo.contains(identificador)) {
 			throw new Exception("Variável não foi declarada anteriormente.");
 		}

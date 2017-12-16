@@ -38,7 +38,7 @@ public class ASTListaID  extends ASTNo{
     
     
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         return getIdentificador();
     }
     

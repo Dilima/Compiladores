@@ -533,7 +533,7 @@ public void compilar() throws Exception {
     String outputC="";
 	String saidaC;
 	yyparse();
-	saidaC = raiz.compilar(tabelaSimbolo);
+	saidaC = raiz.compilarC(tabelaSimbolo);
 	
 	outputC+= "#include<stdio.h>\n";
 	outputC+= "#include<stdlib.h>\n";

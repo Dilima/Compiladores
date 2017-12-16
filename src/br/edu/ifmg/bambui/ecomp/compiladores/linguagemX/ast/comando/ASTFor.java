@@ -45,16 +45,16 @@ public class ASTFor extends ASTComando {
     
     
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-        String output = "for("+getExpr1().compilar(tabelaSimbolo)+"="+
-                getExpr2().compilar(tabelaSimbolo)+";"+
-                getExpr1().compilar(tabelaSimbolo)+"<="+
-                getExpr3().compilar(tabelaSimbolo)+";"+
-                getExpr1().compilar(tabelaSimbolo)+"++){\n"+
-                getBlococomando().compilar(tabelaSimbolo)+"\n}\n";
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+        String output = "for("+getExpr1().compilarC(tabelaSimbolo)+"="+
+                getExpr2().compilarC(tabelaSimbolo)+";"+
+                getExpr1().compilarC(tabelaSimbolo)+"<="+
+                getExpr3().compilarC(tabelaSimbolo)+";"+
+                getExpr1().compilarC(tabelaSimbolo)+"++){\n"+
+                getBlococomando().compilarC(tabelaSimbolo)+"\n}\n";
         
         if(getProximo()!=null){
-            output += getProximo().compilar(tabelaSimbolo);
+            output += getProximo().compilarC(tabelaSimbolo);
         }
         
         return output;

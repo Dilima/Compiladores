@@ -26,7 +26,7 @@ public class ASTPrint extends ASTComando {
     }
     
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         String output = "printf(";
         
         output += texto.compilarTexto(tabelaSimbolo,"","");
@@ -34,7 +34,7 @@ public class ASTPrint extends ASTComando {
         output += ");\n";
 
         if(getProximo()!= null)
-            output += getProximo().compilar(tabelaSimbolo);
+            output += getProximo().compilarC(tabelaSimbolo);
         return output;
     }
 

@@ -51,25 +51,25 @@ public class ASTDeclaracao extends ASTNo{
         this.tipoEspecifico = tipoEspecifico;
     }
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-        String output = getTipoEspecifico().getTipo().compilar(tabelaSimbolo)+" ";
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+        String output = getTipoEspecifico().getTipo().compilarC(tabelaSimbolo)+" ";
         while(getListaID().getProximo()!=null){
                 
-                 output+=getListaID().compilar(tabelaSimbolo);
+                 output+=getListaID().compilarC(tabelaSimbolo);
                  if(getTipoEspecifico().getExpressao()!=null){
-                     output+="["+getTipoEspecifico().getExpressao().compilar(tabelaSimbolo)+"]";
+                     output+="["+getTipoEspecifico().getExpressao().compilarC(tabelaSimbolo)+"]";
                  }
                  output+=",";
                  setListaID(getListaID().getProximo());   
          }
-         output+=getListaID().compilar(tabelaSimbolo);
+         output+=getListaID().compilarC(tabelaSimbolo);
          if(getTipoEspecifico().getExpressao()!=null){
-               output+="["+getTipoEspecifico().getExpressao().compilar(tabelaSimbolo)+"]";
+               output+="["+getTipoEspecifico().getExpressao().compilarC(tabelaSimbolo)+"]";
          }
          output+=";\n";
          
          if(getProximo()!=null){
-           output+=getProximo().compilar(tabelaSimbolo);
+           output+=getProximo().compilarC(tabelaSimbolo);
          }
          return output;
     }

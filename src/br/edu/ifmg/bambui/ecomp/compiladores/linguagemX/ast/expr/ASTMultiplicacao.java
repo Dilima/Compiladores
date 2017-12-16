@@ -24,7 +24,7 @@ public class ASTMultiplicacao extends ASTExpressao {
 		tabelaSimbolo.put("!", t1*t2);
 	}
 @Override
-	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-		return getEsquerda().compilar(tabelaSimbolo)+" * "+getDireita().compilar(tabelaSimbolo);
+	public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+		return getEsquerda().compilarC(tabelaSimbolo)+" * "+getDireita().compilarC(tabelaSimbolo);
 	}
 }

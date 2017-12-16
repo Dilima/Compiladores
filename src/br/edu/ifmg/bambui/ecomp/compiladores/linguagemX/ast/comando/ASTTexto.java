@@ -56,7 +56,7 @@ public class ASTTexto extends ASTNo{
             texto += getString();
         }
         if(getExpressao()!=null){
-            variaveis += "," + getExpressao().compilar(tabelaSimbolo)+ "* 1.0";
+            variaveis += "," + getExpressao().compilarC(tabelaSimbolo)+ "* 1.0";
             texto += " %f";
         }
         if(proximo!=null){

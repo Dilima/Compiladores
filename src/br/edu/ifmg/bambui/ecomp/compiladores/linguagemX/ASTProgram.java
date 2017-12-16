@@ -46,14 +46,14 @@ public class ASTProgram extends ASTNo{
     }
     
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         String output="";
         if(getDeclr()!= null){
-            output += getDeclr().compilar(tabelaSimbolo);
+            output += getDeclr().compilarC(tabelaSimbolo);
         }
         
         if(getComando()!=null){
-            output +=getComando().compilar(tabelaSimbolo);
+            output +=getComando().compilarC(tabelaSimbolo);
         }
         return output;
     }

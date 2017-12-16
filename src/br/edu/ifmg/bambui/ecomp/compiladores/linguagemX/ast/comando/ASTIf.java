@@ -58,17 +58,17 @@ public class ASTIf extends ASTComando {
     }
         
 	@Override
-	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-		String output = "if("+getCondicao().compilar(tabelaSimbolo)+"){\n"+
-                        getBlocoThen().compilar(tabelaSimbolo)+"\n}\n";
+	public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+		String output = "if("+getCondicao().compilarC(tabelaSimbolo)+"){\n"+
+                        getBlocoThen().compilarC(tabelaSimbolo)+"\n}\n";
                     
                 if(getBlocoElse()!=null){
-                    output+="else{\n "+getBlocoElse().compilar(tabelaSimbolo)+"\n}\n";
+                    output+="else{\n "+getBlocoElse().compilarC(tabelaSimbolo)+"\n}\n";
                 }
                     
                 
 		if(getProximo() != null) {
-			output+=getProximo().compilar(tabelaSimbolo);
+			output+=getProximo().compilarC(tabelaSimbolo);
 		}
 		
 		return output;

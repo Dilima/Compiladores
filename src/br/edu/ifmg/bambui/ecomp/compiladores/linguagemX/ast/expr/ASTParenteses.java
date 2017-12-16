@@ -18,7 +18,7 @@ public class ASTParenteses extends ASTExpressao{
     }
 
     @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-        return "( " + getEsquerda().compilar(tabelaSimbolo) + " )";
+    public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
+        return "( " + getEsquerda().compilarC(tabelaSimbolo) + " )";
     }
 }
