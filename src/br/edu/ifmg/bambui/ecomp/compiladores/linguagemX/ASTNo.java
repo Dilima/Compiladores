@@ -26,6 +26,6 @@ public class ASTNo {
 	}
 	
 	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-		return "asdasdas";	
+		throw new RuntimeException("Não é possível utilizar este método da classe ASTNo, é necessário sobreescrevê-lo");
 	}
 }

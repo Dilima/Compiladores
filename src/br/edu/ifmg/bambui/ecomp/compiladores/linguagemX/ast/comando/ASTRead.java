@@ -23,7 +23,7 @@ public class ASTRead extends ASTComando {
 	
 	@Override
 	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
-		String output = "scanf(%d,";
+		String output = "scanf(\"%d\",&";
 		
 		/*if(!tabelaSimbolo.contains(getIdentificador())) {
 			tabelaSimbolo.add(getIdentificador());

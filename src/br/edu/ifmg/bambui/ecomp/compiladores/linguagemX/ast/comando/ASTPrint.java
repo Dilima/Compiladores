@@ -29,38 +29,12 @@ public class ASTPrint extends ASTComando {
     public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
         String output = "printf(";
         
-        while(getTexto().getProximo()!=null){
-            if(getTexto().getString()!=null){
-            output+="\""+getTexto().getString();
-            }else{
-                output+="\"";
-            }
-            if(getTexto().getExpressao()!=null){
-            output+=" %d\","+getTexto().getExpressao().compilar(tabelaSimbolo);
-            }else{
-                output+="\"";
-            }
-            output+=",";
-            setTexto(getTexto().getProximo());
-        }
+        output += texto.compilarTexto(tabelaSimbolo,"","");
         
-            if(getTexto().getString()!=null){
-            output+="\""+getTexto().getString();
-            }else{
-                output+="\"";
-            }
-            if(getTexto().getExpressao()!=null){
-            output+=" %d\","+getTexto().getExpressao().compilar(tabelaSimbolo);
-            }else{
-                output+="\"";
-            }
-        
-        output+=");";output+="\n";
-        
-        if (getProximo() != null) {
-            output += getProximo().compilar(tabelaSimbolo);
-        }
+        output += ");\n";
 
+        if(getProximo()!= null)
+            output += getProximo().compilar(tabelaSimbolo);
         return output;
     }
 

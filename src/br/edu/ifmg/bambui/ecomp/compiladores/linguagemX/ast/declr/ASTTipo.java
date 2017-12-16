@@ -14,16 +14,12 @@ import java.util.HashSet;
 public class ASTTipo extends ASTNo{
     private String tipo;
 
-    public ASTTipo(String token) {
+    public ASTTipo(String tipo) {
         this.tipo = tipo;
     }
 
     public String getToken() {
         return tipo;
-    }
-
-    public void setToken(Token token) {
-        this.tipo = tipo;
     }
     
     @Override

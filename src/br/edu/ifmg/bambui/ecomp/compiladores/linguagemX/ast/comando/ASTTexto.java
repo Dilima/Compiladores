@@ -50,17 +50,24 @@ public class ASTTexto extends ASTNo{
         this.proximo = proximo;
     }
     
-    @Override
-    public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
+    public String compilarTexto(HashSet<String> tabelaSimbolo, String texto, String variaveis) throws Exception{
         String output = "";
         if(getString()!=null){
-            output = "\""+getString()+"\"";
+            texto += getString();
         }
         if(getExpressao()!=null){
-            output = getExpressao().compilar(tabelaSimbolo);
+            variaveis += "," + getExpressao().compilar(tabelaSimbolo)+ "* 1.0";
+            texto += " %f";
         }
-       
-        return output;
+        if(proximo!=null){
+            output = proximo.compilarTexto(tabelaSimbolo, texto, variaveis);
+        } else {
+            if(texto != null)
+                output = "\"" +texto+ "\\n\"";
+            if(variaveis != "")
+                output += variaveis ;
+        }
+       return output;
     }
     
 }

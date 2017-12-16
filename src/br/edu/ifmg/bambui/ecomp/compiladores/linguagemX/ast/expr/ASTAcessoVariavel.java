@@ -17,15 +17,6 @@ public class ASTAcessoVariavel extends ASTExpressao {
 	}
 
 	@Override
-	public void interpretar(HashMap<String, Object> tabelaSimbolo) throws Exception {
-		if(!tabelaSimbolo.containsKey(identificador)) {
-			throw new Exception("Variável não foi declarada anteriormente.");
-		}
-		
-		tabelaSimbolo.put("!", tabelaSimbolo.get(identificador));
-	}
-
-	@Override
 	public String compilar(HashSet<String> tabelaSimbolo) throws Exception {
 		if(!tabelaSimbolo.contains(identificador)) {
 			throw new Exception("Variável não foi declarada anteriormente.");
@@ -33,7 +24,4 @@ public class ASTAcessoVariavel extends ASTExpressao {
 		
 		return identificador;
 	}
-	
-	
-
 }

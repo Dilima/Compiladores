@@ -17,7 +17,7 @@ package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX;
 
 
 
-//#line 17 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 17 "tentativaNovoParser.y"
 import java.io.*;
 import java.util.*;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando.*;
@@ -259,17 +259,17 @@ yytable = new short[]{                         26,
    33,   33,   33,   33,   18,   33,   54,    0,    0,    0,
     0,    0,   43,    0,    0,   43,    0,   33,   33,    0,
    33,   34,   34,   34,   34,   34,    0,   34,    0,   16,
-   43,    0,   35,   35,   40,    0,   40,   40,   40,   34,
+   43,    0,   35,   35,   39,    0,   39,   39,   39,   34,
    34,    0,   34,   35,    0,    0,    0,    0,   35,    0,
-    0,   33,   40,   40,    0,   40,   31,    0,   31,   31,
+    0,   33,   39,   39,    0,   39,   31,    0,   31,   31,
    31,    0,    0,    0,   43,    0,    0,    0,    0,    0,
     0,    0,    0,   34,   31,   31,   32,   31,   32,   32,
-   32,    0,    0,    0,   39,    0,   40,   39,    0,    0,
+   32,    0,    0,    0,   40,    0,   39,   40,    0,    0,
     0,    0,    0,    0,   32,   32,    0,   32,    0,    0,
-    0,    0,   39,   39,    0,   39,   35,    0,   31,   35,
+    0,    0,   40,   40,    0,   40,   35,    0,   31,   35,
     0,    0,   36,    9,   10,   36,   11,    0,    0,    0,
    12,   95,    0,    0,   35,   35,   13,   35,   32,    0,
-   36,   36,    0,   36,   14,    0,   39,   21,    0,    0,
+   36,   36,    0,   36,   14,    0,   40,   21,    0,    0,
     0,    0,   21,    0,    0,    0,    0,   14,   22,   23,
     0,   24,   14,   76,   23,   25,   24,    0,   35,    0,
    25,    0,   45,   46,   36,    0,   38,    5,    5,   38,
@@ -281,14 +281,14 @@ yytable = new short[]{                         26,
     0,   16,    0,    0,   33,    0,    0,    0,    0,   33,
    43,    0,   43,    0,   33,   33,    0,   43,    0,   34,
     0,   34,   43,   33,    0,    0,   34,    0,    0,    0,
-    0,   34,   40,    0,   40,    0,   34,   34,    0,   40,
-    0,    0,    0,    0,   40,   34,    0,    0,    0,   40,
-   40,    0,    0,    0,   31,    0,   31,    0,   40,   52,
+    0,   34,   39,    0,   39,    0,   34,   34,    0,   39,
+    0,    0,    0,    0,   39,   34,    0,    0,    0,   39,
+   39,    0,    0,    0,   31,    0,   31,    0,   39,   52,
    50,   31,   51,    0,   53,    0,   31,    0,    0,    0,
     0,   31,   31,    0,   32,    0,   32,   48,   54,   49,
-   31,   32,   39,    0,   39,    0,   32,    0,    0,   39,
-    0,   32,   32,    0,   39,    0,    0,    0,    0,   39,
-   32,    0,    0,    0,   35,    0,   35,    0,   39,    0,
+   31,   32,   40,    0,   40,    0,   32,    0,    0,   40,
+    0,   32,   32,    0,   40,    0,    0,    0,    0,   40,
+   32,    0,    0,    0,   35,    0,   35,    0,   40,    0,
    36,   35,   36,    0,    0,    0,   35,   36,    0,    0,
     0,   35,   36,   52,   50,    0,   51,   36,   53,    0,
    35,    0,    0,    0,   52,   50,   36,   51,    0,   53,
@@ -474,8 +474,8 @@ final static String yyrule[] = {
 "expr : expr '>' expr",
 "expr : expr '=' expr",
 "expr : expr AND expr",
-"expr : expr TK_BT expr",
 "expr : expr TK_LT expr",
+"expr : expr TK_BT expr",
 "expr : '(' expr ')'",
 "expr : var",
 "expr : NOT expr",
@@ -484,7 +484,7 @@ final static String yyrule[] = {
 "expr : FUNCTION_RANDOM",
 };
 
-//#line 113 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 113 "tentativaNovoParser.y"
 /* PARTE INTERNA DA CLASSE */
 
 private ASTNo raiz;
@@ -530,22 +530,39 @@ public void interpretar() throws Exception {
 public void compilar() throws Exception {
 	HashSet<String> tabelaSimbolo = new HashSet<String>();
 	PrintWriter printWriter;
-    String output="";
-	String saida;
+    String outputC="";
+	String saidaC;
 	yyparse();
-	saida = raiz.compilar(tabelaSimbolo);
+	saidaC = raiz.compilar(tabelaSimbolo);
 	
-	output+= "#include<stdio.h>\n";
-	output+= "#include<stdlib.h>\n";
-	output+="\nint main(void){\n";
+	outputC+= "#include<stdio.h>\n";
+	outputC+= "#include<stdlib.h>\n";
+	outputC+= "#include<stdbool.h>\n";
+	outputC+="\nint main(void){\n";
 
-	output += saida+"\n";
-	output += "\n}";
-	printWriter = new PrintWriter("output.x","UTF-8");
-	printWriter.print(output);
+	outputC += saidaC+"\n";
+	outputC += "\n}";
+	printWriter = new PrintWriter("output.c","UTF-8");
+	printWriter.print(outputC);
 	printWriter.close();
+
+	String outputMIPS="";
+	String saidaMIPS="";
+	//saidaMIPS = raiz.compilarMIPS(tabelaSimbolo);
+	
+	outputMIPS+= "#include<stdio.h>\n";
+	outputMIPS+= "#include<stdlib.h>\n";
+	outputMIPS+= "#include<stdbool.h>\n";
+	outputMIPS+="\nint main(void){\n";
+
+	outputMIPS += saidaMIPS+"\n";
+	outputMIPS += "\n}";
+	printWriter = new PrintWriter("output.MIPS","UTF-8");
+	printWriter.print(outputMIPS);
+	printWriter.close();
+
 }
-//#line 485 "ParserX.java"
+//#line 502 "ParserX.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -701,190 +718,190 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 26 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 26 "tentativaNovoParser.y"
 {raiz = val_peek(0); System.out.println(": program	");}
 break;
 case 2:
-//#line 30 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 30 "tentativaNovoParser.y"
 {yyval = new ASTProgram((ASTDeclaracao)val_peek(1),(ASTComando)val_peek(0)); System.out.println(":	vars_decl comando_list 						");}
 break;
 case 3:
-//#line 31 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{ yyval = new ASTProgram((ASTDeclaracao)val_peek(0)); System.out.println(":	vars_decl				");}
+//#line 31 "tentativaNovoParser.y"
+{yyval = new ASTProgram((ASTDeclaracao)val_peek(0)); System.out.println(":	vars_decl				");}
 break;
 case 4:
-//#line 36 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 36 "tentativaNovoParser.y"
 {System.out.println(":	vars_decl_list 								");}
 break;
 case 5:
-//#line 37 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 37 "tentativaNovoParser.y"
 {System.out.println("|												");}
 break;
 case 6:
-//#line 41 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 41 "tentativaNovoParser.y"
 {yyval = val_peek(0); System.out.println(":	var_decl 									");}
 break;
 case 7:
-//#line 42 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 42 "tentativaNovoParser.y"
 {yyval = val_peek(1); buscaUltimaDecl((ASTDeclaracao)yyval).setProximo((ASTDeclaracao)val_peek(0));System.out.println("|	vars_decl_list var_decl 					");}
 break;
 case 8:
-//#line 46 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 46 "tentativaNovoParser.y"
 {yyval = new ASTDeclaracao((ASTListaID)val_peek(3),(ASTTipoEspecifico)val_peek(1)); System.out.println(":	TK_NEW_VAR id_list ':' type_specifier 	';' 				");}
 break;
 case 9:
-//#line 50 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{ yyval = new ASTListaID(((Token)val_peek(0)).getLexema()); System.out.println(":	IDENTIFICADOR								");}
+//#line 50 "tentativaNovoParser.y"
+{yyval = new ASTListaID(((Token)val_peek(0)).getLexema()); System.out.println(":	IDENTIFICADOR								");}
 break;
 case 10:
-//#line 51 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 51 "tentativaNovoParser.y"
 {yyval  = val_peek(2); buscaUltimoID((ASTListaID)yyval).setProximo(new ASTListaID(((Token)val_peek(0)).getLexema())); System.out.println("|	id_list ',' IDENTIFICADOR					");}
 break;
 case 11:
-//#line 55 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 55 "tentativaNovoParser.y"
 {yyval = new ASTTipoEspecifico((ASTTipo)val_peek(0)); System.out.println(":	type 										");}
 break;
 case 12:
-//#line 56 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 56 "tentativaNovoParser.y"
 {yyval = new ASTTipoEspecifico((ASTTipo)val_peek(3),(ASTExpressao)val_peek(1)); System.out.println("|	type '[' expr ']'							");}
 break;
 case 13:
-//#line 60 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{yyval = new ASTTipo(((Token)val_peek(0)).getLexema()); System.out.println(":	TK_INT 										");}
+//#line 60 "tentativaNovoParser.y"
+{yyval = new ASTTipo("int"); System.out.println(":	TK_INT 										");}
 break;
 case 14:
-//#line 61 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{yyval = new ASTTipo(((Token)val_peek(0)).getLexema()); System.out.println("|	TK_REAL										");}
+//#line 61 "tentativaNovoParser.y"
+{yyval = new ASTTipo("double"); System.out.println("|	TK_REAL										");}
 break;
 case 15:
-//#line 62 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{yyval = new ASTTipo(((Token)val_peek(0)).getLexema()); System.out.println("|	TK_BOOL										");}
+//#line 62 "tentativaNovoParser.y"
+{yyval = new ASTTipo("bool"); System.out.println("|	TK_BOOL										");}
 break;
 case 16:
-//#line 66 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 66 "tentativaNovoParser.y"
 {yyval = new ASTVar(((Token)val_peek(0)).getLexema()); System.out.println(":	IDENTIFICADOR  								");}
 break;
 case 17:
-//#line 67 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 67 "tentativaNovoParser.y"
 {yyval = new ASTVar(((Token)val_peek(3)).getLexema(),(ASTExpressao)val_peek(1)); System.out.println("|	IDENTIFICADOR	'[' expr ']'				");}
 break;
 case 18:
-//#line 72 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 72 "tentativaNovoParser.y"
 {yyval = val_peek(0); System.out.println(":	comando ");}
 break;
 case 19:
-//#line 73 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 73 "tentativaNovoParser.y"
 {yyval = val_peek(1); buscarUltimocomando((ASTComando)yyval).setProximo((ASTComando)val_peek(0)); System.out.println("|   comando_list comando ");}
 break;
 case 20:
-//#line 77 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 77 "tentativaNovoParser.y"
 {yyval = new ASTAtribuicao((ASTVar)val_peek(3),(ASTExpressao)val_peek(1)); System.out.println(":   var <- expr ");}
 break;
 case 21:
-//#line 78 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 78 "tentativaNovoParser.y"
 {yyval = new ASTPrint((ASTTexto)val_peek(1)); System.out.println("|   TK_PRINT texto ");}
 break;
 case 22:
-//#line 79 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 79 "tentativaNovoParser.y"
 {yyval = new ASTRead((ASTVar)val_peek(1)); System.out.println("|   TK_READ IDENTIFICADOR ");}
 break;
 case 23:
-//#line 80 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 80 "tentativaNovoParser.y"
 {yyval= new ASTIf((ASTExpressao)val_peek(3),(ASTComando)val_peek(1)); System.out.println("|   TK_IF expr TK_THEN comando_list TK_END_IF ");}
 break;
 case 24:
-//#line 81 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 81 "tentativaNovoParser.y"
 {yyval = new ASTIf((ASTExpressao)val_peek(5),(ASTComando)val_peek(3),(ASTComando)val_peek(1)); System.out.println("|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF ");}
 break;
 case 25:
-//#line 82 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 82 "tentativaNovoParser.y"
 {yyval = new ASTFor((ASTExpressao)val_peek(8),(ASTExpressao)val_peek(6),(ASTExpressao)val_peek(4),(ASTComando)val_peek(2)); System.out.println("|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	");}
 break;
 case 26:
-//#line 83 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 83 "tentativaNovoParser.y"
 {yyval = new ASTWhile((ASTExpressao)val_peek(4),(ASTComando)val_peek(2)); System.out.println("|	TK_WHILE expr TK_DO comando_list TK_DONE					");}
 break;
 case 27:
-//#line 87 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 87 "tentativaNovoParser.y"
 {yyval = new ASTTexto((ASTExpressao)val_peek(0)); System.out.println(":	expr ");}
 break;
 case 28:
-//#line 88 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 88 "tentativaNovoParser.y"
 {yyval = new ASTTexto(((Token)val_peek(0)).getLexema()); System.out.println("|	STRING ");}
 break;
 case 29:
-//#line 89 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 89 "tentativaNovoParser.y"
 {yyval = val_peek(2); buscaUltimoTexto((ASTTexto)yyval).setProximo(new ASTTexto((ASTExpressao)val_peek(0))); System.out.println("| 	texto ',' expr ");}
 break;
 case 30:
-//#line 90 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 90 "tentativaNovoParser.y"
 {yyval = val_peek(2); buscaUltimoTexto((ASTTexto)yyval).setProximo(new ASTTexto(((Token)val_peek(0)).getLexema())); System.out.println("| 	texto ',' STRING ");}
 break;
 case 31:
-//#line 95 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 95 "tentativaNovoParser.y"
 {yyval = new ASTSoma((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0)); System.out.println(":   expr '+' expr ");}
 break;
 case 32:
-//#line 96 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 96 "tentativaNovoParser.y"
 {yyval = new ASTSubtracao((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0)); System.out.println("|   expr '-' expr ");}
 break;
 case 33:
-//#line 97 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 97 "tentativaNovoParser.y"
 {yyval = new ASTMultiplicacao((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0)); System.out.println("|   expr '*' expr ");}
 break;
 case 34:
-//#line 98 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 98 "tentativaNovoParser.y"
 {yyval = new ASTDivisao((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0)); System.out.println("|   expr '/' expr ");}
 break;
 case 35:
-//#line 99 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 99 "tentativaNovoParser.y"
 {yyval = new ASTMenor((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0)); System.out.println("|   expr '<' expr ");}
 break;
 case 36:
-//#line 100 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 100 "tentativaNovoParser.y"
 {yyval = new ASTMaior((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0)); System.out.println("|   expr '>' expr ");}
 break;
 case 37:
-//#line 101 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 101 "tentativaNovoParser.y"
 {yyval = new ASTIgual((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0)); System.out.println("|   expr '=' expr ");}
 break;
 case 38:
-//#line 102 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{System.out.println("|   expr AND expr ");}
+//#line 102 "tentativaNovoParser.y"
+{yyval = new ASTAnd((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0));System.out.println("|   expr AND expr ");}
 break;
 case 39:
-//#line 103 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{System.out.println("|	expr TK_BT expr													");}
+//#line 103 "tentativaNovoParser.y"
+{yyval = new ASTMenorIgual((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0));System.out.println("|	expr TK_LT expr													");}
 break;
 case 40:
-//#line 104 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{System.out.println("|	expr TK_LT expr													");}
+//#line 104 "tentativaNovoParser.y"
+{yyval = new ASTMaiorIgual((ASTExpressao)val_peek(2),(ASTExpressao)val_peek(0));System.out.println("|	expr TK_BT expr													");}
 break;
 case 41:
-//#line 105 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{yyval = val_peek(1); System.out.println("|	'(' expr ')' ");}
+//#line 105 "tentativaNovoParser.y"
+{yyval = new ASTParenteses((ASTExpressao)val_peek(1)); System.out.println("|	'(' expr ')' ");}
 break;
 case 42:
-//#line 106 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 106 "tentativaNovoParser.y"
 {System.out.println("|	var ");}
 break;
 case 43:
-//#line 107 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
-{System.out.println("|	NOT expr ");}
+//#line 107 "tentativaNovoParser.y"
+{yyval = new ASTNot((ASTExpressao)val_peek(0));System.out.println("|	NOT expr ");}
 break;
 case 44:
-//#line 108 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 108 "tentativaNovoParser.y"
 {yyval = new ASTNumero(((Token)val_peek(0)).getLexema()); System.out.println("|	REAL ");}
 break;
 case 45:
-//#line 109 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 109 "tentativaNovoParser.y"
 {yyval = new ASTNumero(((Token)val_peek(0)).getLexema()); System.out.println("|	INT ");}
 break;
 case 46:
-//#line 110 ".\Compiladores\compiladores\src\br\edu\ifmg\bambui\ecomp\compiladores\jbasic\tentativaNovoParser.y"
+//#line 110 "tentativaNovoParser.y"
 {yyval = new ASTRandom(); System.out.println("|	random ");}
 break;
-//#line 818 "ParserX.java"
+//#line 835 "ParserX.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
