@@ -11,7 +11,7 @@ import java.util.HashSet;
  *
  * @author Projeto
  */
-public class ASTTexto extends ASTNo{
+public class ASTTexto extends ASTComando{
     private ASTExpressao expressao;
     private String string;
     private ASTTexto proximo;

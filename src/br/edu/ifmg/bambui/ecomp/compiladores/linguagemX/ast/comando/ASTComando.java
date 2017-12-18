@@ -17,4 +17,10 @@ public abstract class ASTComando extends ASTNo {
 	public ASTComando getProximo() {
 		return proximo;
 	}
+        public ASTTexto getTexto()throws Exception{
+            throw new RuntimeException("Não é possível utilizar este método da classe ASTComando, é necessário sobreescrevê-lo");
+        }
+        public void setTexto(ASTTexto texto)throws Exception{
+            throw new RuntimeException("Não é possível utilizar este método da classe ASTComando, é necessário sobreescrevê-lo");
+        }
 }

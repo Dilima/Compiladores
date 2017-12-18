@@ -1,5 +1,6 @@
 package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX;
 
+import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando.ASTComando;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -31,4 +32,7 @@ public class ASTNo {
         public String compilarMIPS(HashSet<String> tabelaSimbolo) throws Exception {
 		throw new RuntimeException("Não é possível utilizar este método da classe ASTNo, é necessário sobreescrevê-lo");
 	}
+        public ASTComando encontraString() throws Exception{
+            throw new RuntimeException("Não é possível utilizar este método da classe ASTNo, é necessário sobreescrevê-lo");
+        }
 }

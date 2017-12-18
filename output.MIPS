@@ -1,0 +1,4 @@
+.data
+	msg0:	acsiiz	Informe o valor de A:
+	msg1:	acsiiz	Informe o valor de B (maior que A):
+.text

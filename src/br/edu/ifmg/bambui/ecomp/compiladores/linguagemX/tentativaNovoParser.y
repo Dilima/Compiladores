@@ -34,7 +34,7 @@ program
 /* CONTROLE DAS VARIAVEIS */
 vars_decl
 :	vars_decl_list 													{System.out.println(":	vars_decl_list 								");}
-|																	{System.out.println("|												");}
+|																	{$$ = null; System.out.println("|												");}
 ;
 
 vars_decl_list
@@ -152,13 +152,51 @@ public void interpretar() throws Exception {
 	yyparse();
 	raiz.interpretar(new HashMap<String,Object>());
 }
-public void compilar() throws Exception {
+public void compilarMIPS() throws Exception {
+	HashSet<String> tabelaSimbolo = new HashSet<String>();
+	PrintWriter printWriter;
+    int i = 0,nMsg,j=0;
+    String[] msg = new String[99];
+    ASTComando aux = raiz.encontraString();
+    while(aux != null ){
+    if(aux instanceof ASTTexto){
+    if(aux.getString() !=null){
+    nMsg++;
+    msg[j] = getString();
+    j++;
+    }
+    }
+    aux = aux.getProximo();
+    }
+	String outputMIPS=".data\n";
+	while(i < nMsg){
+	outputMIPS += "	msg"+i+":	acsiiz	"+msg[i]+"\n";
+	i++;
+	}
+	outputMIPS+= ".text\n";
+
+	/*String saidaMIPS="";
+	saidaMIPS = raiz.compilarMIPS(tabelaSimbolo);
+	
+	
+	outputMIPS+="\nint main(void){\n";
+
+	outputMIPS += saidaMIPS+"\n";
+	outputMIPS += "\n}";*/
+
+	printWriter = new PrintWriter("output.MIPS","UTF-8");
+	printWriter.print(outputMIPS);
+	printWriter.close();
+
+}
+
+public void compilarC() throws Exception {
 	HashSet<String> tabelaSimbolo = new HashSet<String>();
 	PrintWriter printWriter;
     String outputC="";
 	String saidaC;
 	yyparse();
-	saidaC = raiz.compilar(tabelaSimbolo);
+	saidaC = raiz.compilarC(tabelaSimbolo);
 	
 	outputC+= "#include<stdio.h>\n";
 	outputC+= "#include<stdlib.h>\n";

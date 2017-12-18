@@ -1,17 +1,10 @@
 { Algoritmo de teste de iteração }
-DeCL A, B : int;
-dECL maximo : bool;
+decl A,B : int;
+decl maximo : bool;
 
-maximo = false;
-writE "Informe o valor de A:";
-read a;
+WRITE "Informe o valor de A:";
+REAd a;
 
-write "Informe o valor de B (maior que A):";
-read b;
+WRITE "Informe o valor de B (maior que A):";
+REAd b;
 
-while not maximo do
-	A <- A + 2;
-	A <- B + 1;
-	Write "A: ",A," B: ",B;
-	maximo <- A >= B;
-done;

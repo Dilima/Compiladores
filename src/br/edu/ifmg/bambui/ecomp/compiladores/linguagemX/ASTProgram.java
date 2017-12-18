@@ -57,5 +57,24 @@ public class ASTProgram extends ASTNo{
         }
         return output;
     }
+
+    @Override
+    public String compilarMIPS(HashSet<String> tabelaSimbolo) throws Exception {
+        String output="";
+        if(getDeclr()!= null){
+            output += getDeclr().compilarMIPS(tabelaSimbolo);
+        }
+        
+        if(getComando()!=null){
+            output +=getComando().compilarMIPS(tabelaSimbolo);
+        }
+        return output;
+    }
+
+    @Override
+    public ASTComando encontraString() throws Exception {
+           return getComando();
+    }            
+    }
     
-}
+

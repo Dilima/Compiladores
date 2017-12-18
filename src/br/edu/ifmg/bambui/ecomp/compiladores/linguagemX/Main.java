@@ -1,6 +1,7 @@
 package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX;
 
 import java.io.FileReader;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 /**
@@ -10,18 +11,35 @@ import javax.swing.JFileChooser;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
+            String opcao="";
 		JFileChooser chooser = new JFileChooser();
 		ParserX parser;
-		
-		System.out.println("**************** JBASIC *****************");
-		System.out.println("* EXEMPLO DA DISCIPLINA DE COMPILADORES *");
-		System.out.println("* ESCOLHA O ARQUIVO COM O CODIGO FONTE  *");
-		System.out.println("*****************************************");
-		System.out.println("\n\n");
-		
-		chooser.showOpenDialog(null);
-		parser = new ParserX(new FileReader(chooser.getSelectedFile()));
-		
-		parser.compilar();
+                try{
+		parser = new ParserX(new FileReader(args[1]));
+                if(args[0].compareTo("-C")==0){
+                    parser.compilarC();
+                }else{
+                    parser.compilarMIPS();
+                }  
+            }catch(Exception e){
+                 chooser.showOpenDialog(null);
+                    parser = new ParserX(new FileReader(chooser.getSelectedFile()));
+                    System.out.println("C ou M?");
+                    Scanner s = new Scanner(System.in);
+                    opcao = s.next();
+                    if(opcao.compareTo("C")==0){
+                        parser.compilarC();
+                    }else{
+                        parser.compilarMIPS();
+                    }
+                }
+                finally{
+                    System.out.println("OBRIGADO POR USAR O NOSSO COMPILADOR!");
+                    System.out.println("DESENVOLVIDO POR:");
+                    System.out.println("DIOGO LIMA");
+                    System.out.println("GUSTAVO NUNES");
+                    System.out.println("GUILHERME MAGNO");
+                    System.out.println("YAGO SOARES");
+                }
 	}
 }
