@@ -6,6 +6,8 @@
 package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.expr;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -21,4 +23,12 @@ public class ASTParenteses extends ASTExpressao{
     public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         return "( " + getEsquerda().compilarC(tabelaSimbolo) + " )";
     }
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        vars = getEsquerda().compilarMIPS(vars);
+        return vars;
+    }
+    
+    
 }

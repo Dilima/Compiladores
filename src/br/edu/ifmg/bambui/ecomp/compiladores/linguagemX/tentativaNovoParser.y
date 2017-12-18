@@ -69,18 +69,18 @@ var
 
 /*	CONTROLE DOS comandos	*/
 comando_list 
-:	comando  														{$$ = $1; System.out.println(":	comando ");}
-|   comando_list comando 											{$$ = $1; buscarUltimocomando((ASTComando)$$).setProximo((ASTComando)$2); System.out.println("|   comando_list comando ");}
+:	comando ';'														{$$ = $1; System.out.println(":	comando ");}
+|   comando_list comando ';' 											{$$ = $1; buscarUltimocomando((ASTComando)$$).setProximo((ASTComando)$2); System.out.println("|   comando_list comando ");}
 ;
 
 comando 
-:   var TK_ATRIBUICAO expr ';' 										{$$ = new ASTAtribuicao((ASTVar)$1,(ASTExpressao)$3); System.out.println(":   var <- expr ");}
-|   TK_PRINT texto ';' 												{$$ = new ASTPrint((ASTTexto)$2); System.out.println("|   TK_PRINT texto ");}
-|   TK_READ var ';' 												{$$ = new ASTRead((ASTVar)$2); System.out.println("|   TK_READ IDENTIFICADOR ");}
+:   var TK_ATRIBUICAO expr 										{$$ = new ASTAtribuicao((ASTVar)$1,(ASTExpressao)$3); System.out.println(":   var <- expr ");}
+|   TK_PRINT texto 												{$$ = new ASTPrint((ASTTexto)$2); System.out.println("|   TK_PRINT texto ");}
+|   TK_READ var 												{$$ = new ASTRead((ASTVar)$2); System.out.println("|   TK_READ IDENTIFICADOR ");}
 |   TK_IF expr TK_THEN comando_list TK_END_IF {$$= new ASTIf((ASTExpressao)$2,(ASTComando)$4); System.out.println("|   TK_IF expr TK_THEN comando_list TK_END_IF ");}
 |   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF 	{$$ = new ASTIf((ASTExpressao)$2,(ASTComando)$4,(ASTComando)$6); System.out.println("|   TK_IF expr TK_THEN comando_list TK_ELSE comando_list TK_END_IF ");}
-|	TK_FOR expr TK_FROM expr TK_TO expr TK_DO comando_list TK_DONE	';' {$$ = new ASTFor((ASTExpressao)$2,(ASTExpressao)$4,(ASTExpressao)$6,(ASTComando)$8); System.out.println("|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	");}
-|	TK_WHILE expr TK_DO comando_list TK_DONE ';' 					{$$ = new ASTWhile((ASTExpressao)$2,(ASTComando)$4); System.out.println("|	TK_WHILE expr TK_DO comando_list TK_DONE					");}
+|	TK_FOR var TK_FROM expr TK_TO expr TK_DO comando_list TK_DONE {$$ = new ASTFor((ASTVar)$2,(ASTExpressao)$4,(ASTExpressao)$6,(ASTComando)$8); System.out.println("|	TK_FOR var TK_FROM INT TK_TO INT TK_DO comando_list TK_DONE	");}
+|	TK_WHILE expr TK_DO comando_list TK_DONE 					{$$ = new ASTWhile((ASTExpressao)$2,(ASTComando)$4); System.out.println("|	TK_WHILE expr TK_DO comando_list TK_DONE					");}
 ;
 
 texto
@@ -152,44 +152,37 @@ public void interpretar() throws Exception {
 	yyparse();
 	raiz.interpretar(new HashMap<String,Object>());
 }
-public void compilarMIPS() throws Exception {
-	HashSet<String> tabelaSimbolo = new HashSet<String>();
-	PrintWriter printWriter;
-    int i = 0,nMsg,j=0;
-    String[] msg = new String[99];
-    ASTComando aux = raiz.encontraString();
-    while(aux != null ){
-    if(aux instanceof ASTTexto){
-    if(aux.getString() !=null){
-    nMsg++;
-    msg[j] = getString();
-    j++;
+    public void compilarMIPS() throws Exception {
+        List<LinkedList<String>> vars = new ArrayList<LinkedList<String>>();
+        for (int j = 0; j < 5; j++) {
+            vars.add(new LinkedList<String>());
+        }
+        PrintWriter printWriter;
+        String outputMIPS = "";
+        String saidaMIPS;
+        yyparse();
+        vars = raiz.compilarMIPS(vars);
+        if (vars.get(0).size() > 0) {
+            outputMIPS = ".data\n";
+            int i = 0;
+            while (!vars.get(0).isEmpty()) {
+                outputMIPS += "	msg" + i + ":	acsiiz	\"" + vars.get(0).remove() + "\"\n";
+                i++;
+            }
+            outputMIPS += ".text\n";
+        }
+        outputMIPS += "main:\n";
+        outputMIPS += "lui $s7, 0x1000\n";
+
+        while(!vars.get(4).isEmpty())
+            outputMIPS+=vars.get(4).remove();
+        outputMIPS += "addi $v0 , $zero ,10\n"
+                + "syscall\n";
+        printWriter = new PrintWriter("output.mips", "UTF-8");
+        printWriter.print(outputMIPS);
+        printWriter.close();
+
     }
-    }
-    aux = aux.getProximo();
-    }
-	String outputMIPS=".data\n";
-	while(i < nMsg){
-	outputMIPS += "	msg"+i+":	acsiiz	"+msg[i]+"\n";
-	i++;
-	}
-	outputMIPS+= ".text\n";
-
-	/*String saidaMIPS="";
-	saidaMIPS = raiz.compilarMIPS(tabelaSimbolo);
-	
-	
-	outputMIPS+="\nint main(void){\n";
-
-	outputMIPS += saidaMIPS+"\n";
-	outputMIPS += "\n}";*/
-
-	printWriter = new PrintWriter("output.MIPS","UTF-8");
-	printWriter.print(outputMIPS);
-	printWriter.close();
-
-}
-
 public void compilarC() throws Exception {
 	HashSet<String> tabelaSimbolo = new HashSet<String>();
 	PrintWriter printWriter;
@@ -208,20 +201,4 @@ public void compilarC() throws Exception {
 	printWriter = new PrintWriter("output.c","UTF-8");
 	printWriter.print(outputC);
 	printWriter.close();
-
-	String outputMIPS="";
-	String saidaMIPS="";
-	//saidaMIPS = raiz.compilarMIPS(tabelaSimbolo);
-	
-	outputMIPS+= "#include<stdio.h>\n";
-	outputMIPS+= "#include<stdlib.h>\n";
-	outputMIPS+= "#include<stdbool.h>\n";
-	outputMIPS+="\nint main(void){\n";
-
-	outputMIPS += saidaMIPS+"\n";
-	outputMIPS += "\n}";
-	printWriter = new PrintWriter("output.MIPS","UTF-8");
-	printWriter.print(outputMIPS);
-	printWriter.close();
-
 }

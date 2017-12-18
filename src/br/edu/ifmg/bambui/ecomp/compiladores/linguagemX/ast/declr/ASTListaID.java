@@ -6,6 +6,8 @@
 package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.declr;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.*;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 /**
  *
  * @author Projeto
@@ -41,5 +43,13 @@ public class ASTListaID  extends ASTNo{
     public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         return getIdentificador();
     }
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        vars.get(3).add(identificador);
+        return vars;
+    }
+    
+    
     
 }

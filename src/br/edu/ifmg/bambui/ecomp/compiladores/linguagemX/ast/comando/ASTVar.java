@@ -7,6 +7,8 @@ package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.*;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.expr.*;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 /**
  *
  * @author Projeto
@@ -25,7 +27,6 @@ public class ASTVar extends ASTExpressao{
         this.identificador = identificador;
         this.expressao = expressao;
     }
-
    
 
     public String getIdentificador() {
@@ -52,6 +53,14 @@ public class ASTVar extends ASTExpressao{
         }
         return output;
     }
-    
-    
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        String output;
+        output = "lw $s"+vars.get(2).size()+","+vars.get(3).indexOf(identificador)*4
+                + "($s7)\n";
+        vars.get(4).add(output);
+        return vars;
+    }
+
 }

@@ -2,6 +2,8 @@ package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -38,4 +40,18 @@ public class ASTRead extends ASTComando {
 		
 		return output;
 	}
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        String output = "li $v0, 5\n" +
+                        "syscall\n";
+        output += "move $s0, $v0\n";
+        vars.get(4).add(output);
+        vars = getIdentificador().compilarMIPS(vars);
+        if(getProximo()!= null)
+            vars = getProximo().compilarMIPS(vars);
+        return vars;
+    }
+        
+        
 }

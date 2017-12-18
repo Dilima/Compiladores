@@ -6,6 +6,8 @@
 package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.expr;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -30,5 +32,18 @@ public class ASTNumero extends ASTExpressao{
     public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         return getValor();
     }
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        String output;
+        output = "addi $a0,$zero," + getValor() + "\n";
+        output += "addi $s" + vars.get(2).size()
+                + ",$zero"
+                + "," + getValor()+"\n";
+        vars.get(4).add(output);
+        return vars;
+    }
+   
+    
     
 }

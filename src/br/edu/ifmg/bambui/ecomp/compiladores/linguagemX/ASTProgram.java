@@ -7,6 +7,8 @@ package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando.*;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.declr.*;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -59,16 +61,16 @@ public class ASTProgram extends ASTNo{
     }
 
     @Override
-    public String compilarMIPS(HashSet<String> tabelaSimbolo) throws Exception {
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
         String output="";
         if(getDeclr()!= null){
-            output += getDeclr().compilarMIPS(tabelaSimbolo);
+            output += getDeclr().compilarMIPS(vars);
         }
         
         if(getComando()!=null){
-            output +=getComando().compilarMIPS(tabelaSimbolo);
+            output +=getComando().compilarMIPS(vars);
         }
-        return output;
+        return vars;
     }
 
     @Override

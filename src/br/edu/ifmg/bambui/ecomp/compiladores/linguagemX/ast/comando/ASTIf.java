@@ -3,6 +3,8 @@ package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.expr.ASTExpressao;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Nó da árvore que representa a estrutura de condição IF
@@ -73,4 +75,30 @@ public class ASTIf extends ASTComando {
 		
 		return output;
 	}
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        String output;
+        vars = getCondicao().compilarMIPS(vars);
+        vars.get(1).add("a");
+        String aux;
+        aux = (getBlocoElse()!= null)? "else":"fimif";
+        int auxsize = vars.get(1).size();
+        output = "beq $s0, $zero, "+ aux+auxsize+"\n";
+        vars.get(4).add(output);
+        vars = getBlocoThen().compilarMIPS(vars);
+        
+        output = "j fimif"+ auxsize + "\n";
+        vars.get(4).add(output);
+        
+        if(getBlocoElse()!= null){
+         output = "else"+auxsize+":\n";
+         vars = getBlocoElse().compilarMIPS(vars);
+        }
+        output = "fimif"+ auxsize + ":\n";
+        vars.get(4).add(output);
+        
+        return vars;
+    }
+        
 }
