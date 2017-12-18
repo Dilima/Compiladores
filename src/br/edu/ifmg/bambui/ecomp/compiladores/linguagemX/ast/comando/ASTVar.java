@@ -57,9 +57,20 @@ public class ASTVar extends ASTExpressao{
     @Override
     public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
         String output;
+        if(expressao!= null){
+            vars = expressao.compilarMIPS(vars);
+            output ="multi $s"+(vars.get(2).size()+1)+", 4\n";
+            output += "mflo $s"+(vars.get(2).size()+1)+"\n";
+            output += "addi $s"+(vars.get(2).size()+1)+", $s"+(vars.get(2).size())+"," + (vars.get(3).indexOf(identificador))*4 +"\n";
+            
+            output += "lw $s"+vars.get(2).size()+", $s"+ (vars.get(2).size()+1)+"($s7)\n";
+            vars.get(4).add(output);
+        } else {
         output = "lw $s"+vars.get(2).size()+","+vars.get(3).indexOf(identificador)*4
                 + "($s7)\n";
         vars.get(4).add(output);
+        
+        }
         return vars;
     }
 

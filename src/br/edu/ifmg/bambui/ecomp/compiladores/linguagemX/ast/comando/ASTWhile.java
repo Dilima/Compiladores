@@ -8,6 +8,8 @@ package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando;
 import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.expr.ASTExpressao;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 /**
  *
  * @author Projeto
@@ -39,6 +41,22 @@ public class ASTWhile extends ASTComando{
             output+=getProximo().compilarC(tabelaSimbolo);
         }
         return output;
+    }
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        String output="";
+        int auxsize =  vars.get(1).size();
+        vars = getCondicao().compilarMIPS(vars);
+        output = "while" + auxsize+":\n";
+        output += "beq $s0, $zero, exitwhile"+auxsize+"\n";
+        vars.get(4).add(output);
+        vars = getBlococomandos().compilarMIPS(vars);
+        vars = getCondicao().compilarMIPS(vars);
+        output = "j while"+auxsize+"\n";
+        output += "exitwhile" + auxsize+":\n";
+        vars.get(4).add(output);
+        return vars; //To change body of generated methods, choose Tools | Templates.
     }
     
     

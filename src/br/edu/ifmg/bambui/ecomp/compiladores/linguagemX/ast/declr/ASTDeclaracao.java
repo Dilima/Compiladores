@@ -56,9 +56,15 @@ public class ASTDeclaracao extends ASTNo {
 
     @Override
     public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
-        String output = "";
+        String output="";
         while (getListaID() != null) {
-            vars = listaID.compilarMIPS(vars);
+            int aux = 1;
+            if(getTipoEspecifico().getExpressao() != null)
+                aux = Integer.parseInt(getTipoEspecifico().getExpressao());
+            
+            for (int i = 0; i < aux; i++) {
+                vars = listaID.compilarMIPS(vars);
+            }
             setListaID(listaID.getProximo());
         }
         if (getProximo() != null) {
@@ -74,14 +80,14 @@ public class ASTDeclaracao extends ASTNo {
 
             output += getListaID().compilarC(tabelaSimbolo);
             if (getTipoEspecifico().getExpressao() != null) {
-                output += "[" + getTipoEspecifico().getExpressao().compilarC(tabelaSimbolo) + "]";
+                output += "[" + getTipoEspecifico().getExpressao() + "]";
             }
             output += ",";
             setListaID(getListaID().getProximo());
         }
         output += getListaID().compilarC(tabelaSimbolo);
         if (getTipoEspecifico().getExpressao() != null) {
-            output += "[" + getTipoEspecifico().getExpressao().compilarC(tabelaSimbolo) + "]";
+            output += "[" + getTipoEspecifico().getExpressao()+ "]";
         }
         output += ";\n";
 

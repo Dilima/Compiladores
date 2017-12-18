@@ -5,7 +5,10 @@
  */
 package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.expr;
 
+import br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.comando.ASTComando;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -21,5 +24,16 @@ public class ASTRandom extends ASTExpressao {
     public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         return "rand()";
     }
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        String output = "add $s0, $s0, $s1 #random\n";
+        vars.get(4).add(output);
+        return vars; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
+    
     
 }

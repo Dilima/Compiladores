@@ -14,7 +14,7 @@ import java.util.HashSet;
  */
 public class ASTTipoEspecifico extends ASTNo{
     private ASTTipo tipo;
-    private ASTExpressao expressao;
+    private String expressao;
 
     public ASTTipoEspecifico(ASTTipo tipo) {
         this.tipo = tipo;
@@ -22,7 +22,7 @@ public class ASTTipoEspecifico extends ASTNo{
        
     }
 
-    public ASTTipoEspecifico(ASTTipo tipo,ASTExpressao expressao) {
+    public ASTTipoEspecifico(ASTTipo tipo,String expressao) {
         this.tipo = tipo;
         this.expressao =expressao;
     }
@@ -35,11 +35,11 @@ public class ASTTipoEspecifico extends ASTNo{
         this.tipo = tipo;
     }
 
-    public ASTExpressao getExpressao() {
+    public String getExpressao() {
         return expressao;
     }
 
-    public void setExpressao(ASTExpressao expressao) {
+    public void setExpressao(String expressao) {
         this.expressao = expressao;
     }
     

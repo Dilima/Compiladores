@@ -53,7 +53,7 @@ id_list
 
 type_specifier
 :	type 															{$$ = new ASTTipoEspecifico((ASTTipo)$1); System.out.println(":	type 										");}
-|	type '[' expr ']'												{$$ = new ASTTipoEspecifico((ASTTipo)$1,(ASTExpressao)$3); System.out.println("|	type '[' expr ']'							");}
+|	type '[' INT ']'												{$$ = new ASTTipoEspecifico((ASTTipo)$1,((Token)$3).getLexema()); System.out.println("|	type '[' expr ']'							");}
 ;
 
 type

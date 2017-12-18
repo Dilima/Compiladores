@@ -32,11 +32,6 @@ public class ASTAtribuicao extends ASTComando {
     @Override
     public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         String output;
-
-        /*if(!tabelaSimbolo.contains(get)) {
-			tabelaSimbolo.add(identificador);
-		}
-         */
         output = getIdentificador().compilarC(tabelaSimbolo) + " = " + getExpressao().compilarC(tabelaSimbolo) + ";";
         output += "\n";
 
@@ -49,8 +44,10 @@ public class ASTAtribuicao extends ASTComando {
 
     @Override
     public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+        vars = expressao.compilarMIPS(vars);
         String output = "sw $s0," + vars.get(3).indexOf(identificador) * 4
                 + "($s7)\n";
+        vars.get(4).add(output);
         if (getProximo() != null) {
             vars = getProximo().compilarMIPS(vars);
         }
