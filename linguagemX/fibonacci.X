@@ -20,9 +20,9 @@ else
 				temp <- t1;
 				t1 <- t2;
 				t2 <- t1 + temp;
-			done
+			done;
 			
 			write "O elemento da posição ",n," da série é ",t2;
-		fi
-	fi
-fi
+		fi;
+	fi;
+fi;

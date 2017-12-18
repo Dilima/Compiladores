@@ -44,7 +44,7 @@ public class ASTDivisao extends ASTExpressao {
                 + ", $s" + (vars.get(2).size() + 1)
                 + ", $s" + vars.get(2).size()
                 + "\n";
-        output += "mflo $s" + vars.get(2).size();
+        output += "mflo $s" + vars.get(2).size()+"\n";
         output += "add $a0, $zero, $s0\n";
         vars.get(4).add(output);
         return vars;

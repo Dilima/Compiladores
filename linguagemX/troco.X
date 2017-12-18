@@ -30,8 +30,8 @@ while total > 0 do
 				else
 					write total," moedas de 1";
 					total <- 0;
-				fi
-			fi
-		fi
-	fi
+				fi;
+			fi;
+		fi;
+	fi;
 done;

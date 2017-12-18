@@ -6,6 +6,8 @@
 package br.edu.ifmg.bambui.ecomp.compiladores.linguagemX.ast.expr;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -21,4 +23,15 @@ public class ASTAnd extends ASTExpressao{
     public String compilarC(HashSet<String> tabelaSimbolo) throws Exception {
         return getEsquerda().compilarC(tabelaSimbolo) + " && " + getDireita().compilarC(tabelaSimbolo);
     }
+
+    @Override
+    public List<LinkedList<String>> compilarMIPS(List<LinkedList<String>> vars) throws Exception {
+    vars = getEsquerda().compilarMIPS(vars);
+    vars.get(2).add("1");
+    vars = getDireita().compilarMIPS(vars);
+    vars.get(2).remove();
+    String output = "and $s"+vars.get(2).size()+ ", $s"+vars.get(2).size()+",$s"+(vars.get(2).size()+1)+"\n";
+    return vars;
+    }
+    
 }
